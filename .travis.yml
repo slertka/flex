@@ -2,6 +2,13 @@ language: node_js
 node_js: node
 cache:
   directories:
-    - node_modules
+  - node_modules
 env:
-  - CI=true
+- CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: JK8P9xkW3WTQPSh+bbHy2Av8u+XTA75AQB795ZCiBIqvECcZK7FdtcMB96NXgzt/ZWVPSiLRx7NEl+cTNGQ6Iz9c1mJ/IuLu5w+cYPfH4x4Ube2mpt3tJ0ymA3Rpo845Gv+Iqjozsnahk8arKi+ST6LPBdPL+e4o4M0m3Mj/uBtVfXRvDnl9o6l2w9F61sQmKZZt2xS/Febl7U9fuP/DTW+bteMTyRKdyZcFpFMtZ7qByGy7IfYh1lplK8vkyaAz1iE8lEfAj6fQB819CyEEoAB2j/VMKbwPunSdKt/kyiEP0QMw41BqWi8n56D8eZJBLpomF2BLbaJKXBZNYD+kUad0AqsA1ZRzpsIAvUESXzATqC7XoEcyyoz34FjDIh+9IAhNL2mhfZhAmv2yhBtuLdWjfK3d8KyjgMG5K12CU76xZ1+7w2J9QQiJhDCHsN6ImSYKCw8JZTJNqG0JZRd42Ven8kn238CPrnE3nbfriwYP3gMhcvKpHt8YmEXc+sxDBN7Cb5WiHuUkZTRQJHqgWm1+dSEUM3jcJmWbamFOn/Xv007wCaZeO0uPxIBPPUNzbkgCZXJi2xC/deQTa/+JeJcoYZ8x2hgjZZ6EgY9zEbje8Vaxi4y5H5YLfBPbqoUY+1sWBhbdUUYKeow6TFE52FNd5voZq59xzSVhKvvwYzg=
+  app: floating-savannah-98427
+  on:
+    repo: slertka/flex
