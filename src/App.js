@@ -1,7 +1,9 @@
+// Dependencies
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
+// Components
 import Info from "./components/Info/Info";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import Footer from "./components/Footer/Footer";

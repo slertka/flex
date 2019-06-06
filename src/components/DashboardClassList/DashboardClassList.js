@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Router } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import "./DashboardClassList.css";
 
 import ClassCard from "../ClassCard/ClassCard";
