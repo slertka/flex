@@ -1,15 +1,8 @@
 import React from "react";
-import "./Info.css";
 
-export default function Info() {
+export default function() {
   return (
     <div>
-      <header role="banner">
-        <h1>Flex</h1>
-        <h2>Build your yoga network</h2>
-        [screen shot of example dashboard from instructor POV]
-      </header>
-
       <section>
         <header>
           <h3>Search Open Classes</h3>
