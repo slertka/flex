@@ -6,8 +6,9 @@ export default class PostClassForm extends React.Component {
   render() {
     return (
       <form>
+        <h3>Post a New Class</h3>
         <div>
-          <label for="class-type">Class Format</label>
+          <label htmlFor="class-type">Class Format</label>
           <select required name="class-type">
             <option value="">Select Class Format</option>
             <option value="open">Open Format</option>
@@ -20,13 +21,13 @@ export default class PostClassForm extends React.Component {
           </select>
         </div>
         <div>
-          <label for="open-date">Open Start Date:</label>
+          <label htmlFor="open-date">Open Start Date:</label>
           <input type="date" name="open-date" required />
         </div>
         <div>
           <fieldset required>
             <legend>Class Date</legend>
-            <label for="day-of-week">Day: </label>
+            <label htmlFor="day-of-week">Day: </label>
             <select required name="day-of-week">
               <option value="">Select Day</option>
               <option value="monday">Monday</option>
@@ -37,12 +38,12 @@ export default class PostClassForm extends React.Component {
               <option value="saturday">Saturday</option>
               <option value="sunday">Sunday</option>
             </select>
-            <label for="class-time">Time</label>
+            <label htmlFor="class-time">Time</label>
             <input type="time" required />
           </fieldset>
         </div>
         <div>
-          <label for="class-description">Class Description</label>
+          <label htmlFor="class-description">Class Description</label>
           <textarea
             name="class-description"
             rows="15"
@@ -51,7 +52,7 @@ export default class PostClassForm extends React.Component {
         </div>
         <input type="submit" />
         <Link to="/dashboard">
-          <button>Cancel</button>
+          <button onClick={this.props.cancelPost}>Cancel</button>
         </Link>
       </form>
     );

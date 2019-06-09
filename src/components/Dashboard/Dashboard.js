@@ -1,10 +1,11 @@
 import React from "react";
+
 import DashboardHeader from "../DashboardHeader/DashboardHeader";
 import DashboardSearch from "../DashboardSearch/DashboardSearch";
 import DashboardClassList from "../DashboardClassList/DashboardClassList";
 
 // Context
-import ClassContext from "../../ClassContext";
+import ClassContext from "../../context/ClassContext";
 
 export class Dashboard extends React.Component {
   static contextType = ClassContext;

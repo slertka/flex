@@ -19,12 +19,6 @@ class App extends React.Component {
     };
   }
 
-  incrementCount(e) {
-    this.setState({
-      count: this.state.count + 1
-    });
-  }
-
   render() {
     return (
       <div className="App">
@@ -34,11 +28,17 @@ class App extends React.Component {
           <Route exact path="/" component={SignUpForm} />
           <Route exact path="/" component={Footer} />
 
+          <Route exact path="/about" component={Header} />
+          <Route exact path="/about" component={Details} />
+          <Route exact path="/about" component={Footer} />
+
           <Route path="/login" component={Header} />
           <Route path="/login" component={LogInForm} />
+          <Route path="/login" component={Footer} />
 
           <Route path="/signup" component={Header} />
           <Route path="/signup" component={SignUpForm} />
+          <Route path="/signup" component={Footer} />
 
           <Route path="/dashboard" component={Dashboard} />
         </Router>

@@ -6,7 +6,7 @@ import "./LogInForm.css";
 export default class LogInForm extends React.Component {
   render() {
     return (
-      <div class="log-in-form">
+      <div className="log-in-form">
         <header>
           <h3>Log in</h3>
         </header>
