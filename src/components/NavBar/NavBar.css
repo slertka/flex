@@ -3,6 +3,8 @@
   color: slateblue;
   text-align: right;
   position: fixed;
+  right: 2%;
+  top: 2%;
 }
 
 .nav-icon {

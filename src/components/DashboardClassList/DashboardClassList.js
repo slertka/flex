@@ -31,7 +31,12 @@ export default class DashboardClassList extends React.Component {
     // Create Class Cards
     const classes = this.props.classes;
     const classList = classes.map(props => (
-      <ClassCard key={props.id} {...props} posting={this.state.postingClass} />
+      <ClassCard
+        key={props.id}
+        profile={this.props.profile}
+        {...props}
+        posting={this.state.postingClass}
+      />
     ));
 
     // Conditional Displays depending on profile type

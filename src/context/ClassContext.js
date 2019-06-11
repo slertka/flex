@@ -2,7 +2,7 @@ import React from "react";
 
 const ClassContext = React.createContext({
   user: {
-    type: "studio", // studio
+    type: "instructor",
     firstName: "Ingrid",
     lastName: "Instructor",
     jwt: null

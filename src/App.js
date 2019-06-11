@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
+import { API_URL } from "./config";
+
 // Components
 import Header from "./components/Header/Header";
 import Details from "./components/Details/Details";
@@ -23,20 +25,19 @@ class App extends React.Component {
     return (
       <div className="App">
         <Router>
-          <Route exact path="/" component={Header} />
+          {["/", "/about", "/login", "/signup"].map(url => (
+            <Route exact path={url} component={Header} key={url} />
+          ))}
           <Route exact path="/" component={Details} />
-          <Route exact path="/" component={SignUpForm} />
+          <Route exact path="/" component={LogInForm} />
           <Route exact path="/" component={Footer} />
 
-          <Route exact path="/about" component={Header} />
           <Route exact path="/about" component={Details} />
           <Route exact path="/about" component={Footer} />
 
-          <Route path="/login" component={Header} />
           <Route path="/login" component={LogInForm} />
           <Route path="/login" component={Footer} />
 
-          <Route path="/signup" component={Header} />
           <Route path="/signup" component={SignUpForm} />
           <Route path="/signup" component={Footer} />
 

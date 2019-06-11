@@ -1,10 +1,13 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFireAlt, faSmile } from "@fortawesome/free-solid-svg-icons";
 
 export default function() {
   return (
     <div>
       <section>
         <header>
+          <FontAwesomeIcon icon={faFireAlt} className="fa-3x" />
           <h3>Search Open Classes</h3>
         </header>
         <p>
@@ -15,6 +18,7 @@ export default function() {
 
       <section>
         <header>
+          <FontAwesomeIcon icon={faSmile} className="fa-3x" />
           <h3>Hire Certified Instructors</h3>
         </header>
         <p>

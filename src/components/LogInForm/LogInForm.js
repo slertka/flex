@@ -13,7 +13,7 @@ export default class LogInForm extends React.Component {
         <form>
           <div>
             <label htmlFor="user-email">Email: </label>
-            <input type="text" name="user-email" />
+            <input type="text" name="user-email" placeholder="Email Address" />
           </div>
           <div>
             <label htmlFor="password">Password: </label>

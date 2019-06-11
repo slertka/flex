@@ -16,15 +16,22 @@ export default class ClassCard extends React.Component {
   };
 
   render() {
+    const applyButton =
+      this.props.profile === "instructor" ? (
+        <button name="apply" className="apply-button">
+          <label htmlFor="apply">Click to Apply</label>
+        </button>
+      ) : (
+        ""
+      );
+
     return (
       <li
         className={
           this.props.posting ? "hidden open-position" : "open-position"
         }
       >
-        <button name="apply" className="apply-button">
-          <label htmlFor="apply">Click to Apply</label>
-        </button>
+        {applyButton}
         <button name="expand" onClick={e => this.handleExpand(e)}>
           {this.state.expanded ? "Hide" : "Expand"}
         </button>

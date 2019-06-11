@@ -15,6 +15,20 @@ export default class SignUpForm extends React.Component {
             <option value="instructor">Instructor</option>
           </select>
         </div>
+        {/* can use ref here to selectively display studio? */}
+        <div>
+          <label htmlFor="user-studio">Studio: </label>
+          <input type="text" name="user-studio" />
+        </div>
+
+        <div>
+          <label htmlFor="user-firstName">First Name: </label>
+          <input type="text" name="user-firstName" />
+        </div>
+        <div>
+          <label htmlFor="user-lastName">Last Name: </label>
+          <input type="text" name="user-lastName" />
+        </div>
         <div>
           <label htmlFor="user-email">Email: </label>
           <input type="text" name="user-email" />
