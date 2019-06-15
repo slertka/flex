@@ -1,15 +1,83 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./PostClassForm.css";
+import AuthContext from "../../context/AuthContext";
+
+import { API_URL } from "../../config";
 
 export default class PostClassForm extends React.Component {
+  static contextType = AuthContext;
+
+  state = {
+    classPosted: null
+  };
+
+  createClass = e => {
+    e.preventDefault();
+
+    // pull data from form inputs
+    const {
+      type,
+      length,
+      wage,
+      classDateDay,
+      classDateTime,
+      startDate,
+      description
+    } = e.target;
+
+    // create form data object
+    const formData = {
+      type: type.value,
+      length: parseInt(length.value),
+      wage: parseInt(wage.value),
+      classDateDay: classDateDay.value,
+      classDateTie: classDateTime.value,
+      startDate: startDate.value,
+      description: description.value,
+      postedBy: this.context.id
+    };
+
+    // fetch request to POST/create new class
+    fetch(`${API_URL}/dashboard/postClass`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => {
+        if (res.status === 422) {
+          return this.setState({
+            classPosted: false
+          });
+        }
+        return res.json();
+      })
+      .then(() => {
+        this.setState({
+          classPosted: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
+    const redirectToDashboard = this.state.classPosted ? (
+      <Redirect to="/dashboard" />
+    ) : (
+      ""
+    );
+
     return (
-      <form>
+      <form onSubmit={e => this.createClass(e)}>
+        {redirectToDashboard}
         <h3>Post a New Class</h3>
         <div>
-          <label htmlFor="class-type">Class Format</label>
-          <select required name="class-type">
+          <label htmlFor="type">Class Format</label>
+          <select name="type">
             <option value="">Select Class Format</option>
             <option value="open">Open Format</option>
             <option value="vinyasa">Vinyasa</option>
@@ -21,14 +89,22 @@ export default class PostClassForm extends React.Component {
           </select>
         </div>
         <div>
-          <label htmlFor="open-date">Open Start Date:</label>
-          <input type="date" name="open-date" required />
+          <label htmlFor="length">Class Length</label>
+          <input type="number" name="length" />
         </div>
         <div>
-          <fieldset required>
+          <label htmlFor="wage">Hourly Wage</label>
+          <input type="number" name="wage" />
+        </div>
+        <div>
+          <label htmlFor="startDate">Open Start Date:</label>
+          <input type="date" name="startDate" />
+        </div>
+        <div>
+          <fieldset>
             <legend>Class Date</legend>
-            <label htmlFor="day-of-week">Day: </label>
-            <select required name="day-of-week">
+            <label htmlFor="classDateDay">Day: </label>
+            <select name="classDateDay">
               <option value="">Select Day</option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
@@ -38,14 +114,14 @@ export default class PostClassForm extends React.Component {
               <option value="saturday">Saturday</option>
               <option value="sunday">Sunday</option>
             </select>
-            <label htmlFor="class-time">Time</label>
-            <input type="time" required />
+            <label htmlFor="classDateTime">Time</label>
+            <input type="time" name="classDateTime" />
           </fieldset>
         </div>
         <div>
-          <label htmlFor="class-description">Class Description</label>
+          <label htmlFor="description">Class Description</label>
           <textarea
-            name="class-description"
+            name="description"
             rows="15"
             placeholder="Tell us more about your class..."
           />

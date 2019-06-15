@@ -47,7 +47,8 @@ class App extends React.Component {
       firstName: this.context.user.firstName,
       setJwt: this.setJwt,
       setAuthUser: this.setAuthUser,
-      type: this.context.user.type
+      type: this.context.user.type,
+      id: this.context.user.id
     };
 
     return (
