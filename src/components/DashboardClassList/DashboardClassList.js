@@ -6,7 +6,40 @@ import ClassCard from "../ClassCard/ClassCard";
 import PostClassButton from "../PostClassButton/PostClassButton";
 import PostClassForm from "../PostClassForm/PostClassForm";
 
+import AuthContext from "../../context/AuthContext";
+
+const SAMPLE_DATA = {
+  classes: [
+    {
+      id: 1,
+      type: "vinyasa",
+      wage: 35,
+      length: 60,
+      studio: "Flow & Joe",
+      startDate: new Date(2019, 6, 15),
+      classDateDay: "Monday",
+      classDateTime: "17:30",
+      description:
+        "Officia nisi dolore ex consectetur duis velit minim ex duis et voluptate labore. Voluptate ullamco laboris nulla ea occaecat irure ad Lorem irure nulla Lorem nostrud minim. Duis quis adipisicing amet sit fugiat esse nisi et minim aute."
+    },
+    {
+      id: 2,
+      type: "hatha",
+      wage: 35,
+      length: 75,
+      studio: "Corepower Yoga",
+      startDate: new Date(2019, 6, 12),
+      classDateDay: "Wednesday",
+      classDateTime: "18:30",
+      description:
+        "Minim sint qui ipsum et duis consequat dolor reprehenderit mollit. Incididunt ex tempor exercitation reprehenderit consequat elit anim. Qui amet deserunt ullamco sint voluptate. Est velit veniam amet consequat minim culpa do exercitation officia et exercitation in."
+    }
+  ]
+};
+
 export default class DashboardClassList extends React.Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
 
@@ -14,6 +47,8 @@ export default class DashboardClassList extends React.Component {
       postingClass: false
     };
   }
+
+  // utilize component did mount to make fetch request for class data associated with the user if type=studio
 
   postClass(e) {
     this.setState({
@@ -29,7 +64,7 @@ export default class DashboardClassList extends React.Component {
 
   render() {
     // Create Class Cards
-    const classes = this.props.classes;
+    const classes = SAMPLE_DATA.classes;
     const classList = classes.map(props => (
       <ClassCard
         key={props.id}
@@ -40,9 +75,11 @@ export default class DashboardClassList extends React.Component {
     ));
 
     // Conditional Displays depending on profile type
-    const profile = this.props.profile;
+    const profile = this.context.type;
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";
+    const deleteClassButton =
+      profile === "studio" ? <button>Delete</button> : "";
     const newClassButton =
       profile === "studio" ? (
         <Link to="/dashboard/post">
@@ -67,6 +104,7 @@ export default class DashboardClassList extends React.Component {
           <h3 className={this.state.postingClass ? "hidden" : ""}>{header}</h3>
 
           {newClassButton}
+          {deleteClassButton}
 
           <Route
             exact

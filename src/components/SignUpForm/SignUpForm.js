@@ -1,15 +1,18 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
 import "./SignUpForm.css";
 
+import { Link, Redirect } from "react-router-dom";
 import { API_URL } from "../../config";
 
+import AuthContext from "../../context/AuthContext";
+
 export default class SignUpForm extends React.Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.state = {
-      // set default to studio (first select) if no option is not changed
-      type: "studio"
+      userCreated: false
     };
   }
 
@@ -27,23 +30,59 @@ export default class SignUpForm extends React.Component {
 
   createUser = e => {
     e.preventDefault();
+    const {
+      type,
+      studio,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPass
+    } = e.target;
+
+    const userInfo = {
+      type: type.value,
+      studio: studio.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      confirmPass: confirmPass.value
+    };
+
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(userInfo)
     };
+
     fetch(`${API_URL}/user/signup`, options)
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 422) {
+          return this.setState({
+            userCreated: false
+          });
+        }
+        return res.json();
+      })
       .then(resj => {
+        // Store user data in local storage
+        localStorage.setItem("jwt", resj.jwt);
+        localStorage.setItem("user", JSON.stringify(resj.user));
+        // Store JWT in state
+        this.context.setJwt(resj.jwt);
+        // Set AuthContext
+        this.context.setAuthUser(resj.user);
         // Change state for redirect
         this.setState({
           userCreated: true
         });
-        // Store JWT in local storage
-        localStorage.setItem("jwt", resj.jwt);
-        // Set AuthContext
+      })
+      .catch(err => {
+        console.log(err);
+        // highlight fields that have an error?
       });
   };
 
@@ -60,41 +99,41 @@ export default class SignUpForm extends React.Component {
           <h3>Sign up now</h3>
         </header>
         <div>
-          <select onChange={e => this.setProfileType(e)}>
+          <select name="type">
             <option value="studio">Studio</option>
             <option value="instructor">Instructor</option>
           </select>
         </div>
         <div>
-          <label htmlFor="user-studio">Studio: </label>
+          <label htmlFor="studio">Studio: </label>
           <input
             type="text"
-            name="user-studio"
+            name="studio"
             onChange={e => this.updateStateWithInput(e, "studio")}
           />
         </div>
 
         <div>
-          <label htmlFor="user-firstName">First Name: </label>
+          <label htmlFor="firstName">First Name: </label>
           <input
             type="text"
-            name="user-firstName"
+            name="firstName"
             onChange={e => this.updateStateWithInput(e, "firstName")}
           />
         </div>
         <div>
-          <label htmlFor="user-lastName">Last Name: </label>
+          <label htmlFor="lastName">Last Name: </label>
           <input
             type="text"
-            name="user-lastName"
+            name="lastName"
             onChange={e => this.updateStateWithInput(e, "lastName")}
           />
         </div>
         <div>
-          <label htmlFor="user-email">Email: </label>
+          <label htmlFor="email">Email: </label>
           <input
             type="text"
-            name="user-email"
+            name="email"
             onChange={e => this.updateStateWithInput(e, "email")}
           />
         </div>
@@ -107,10 +146,10 @@ export default class SignUpForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="password-verify">Verify Password: </label>
+          <label htmlFor="confirmPass">Verify Password: </label>
           <input
             type="password"
-            name="password-verify"
+            name="confirmPass"
             onChange={e => this.updateStateWithInput(e, "confirmPass")}
           />
         </div>
