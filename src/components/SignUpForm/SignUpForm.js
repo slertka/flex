@@ -16,18 +16,6 @@ export default class SignUpForm extends React.Component {
     };
   }
 
-  setProfileType(e) {
-    this.setState({
-      type: e.target.value
-    });
-  }
-
-  updateStateWithInput(e, key) {
-    this.setState({
-      [key]: e.target.value
-    });
-  }
-
   createUser = e => {
     e.preventDefault();
     const {
@@ -73,7 +61,7 @@ export default class SignUpForm extends React.Component {
         localStorage.setItem("user", JSON.stringify(resj.user));
         // Store JWT in state
         this.context.setJwt(resj.jwt);
-        // Set AuthContext
+        // Store AuthUser in state
         this.context.setAuthUser(resj.user);
         // Change state for redirect
         this.setState({
@@ -106,52 +94,28 @@ export default class SignUpForm extends React.Component {
         </div>
         <div>
           <label htmlFor="studio">Studio: </label>
-          <input
-            type="text"
-            name="studio"
-            onChange={e => this.updateStateWithInput(e, "studio")}
-          />
+          <input type="text" name="studio" />
         </div>
 
         <div>
           <label htmlFor="firstName">First Name: </label>
-          <input
-            type="text"
-            name="firstName"
-            onChange={e => this.updateStateWithInput(e, "firstName")}
-          />
+          <input type="text" name="firstName" />
         </div>
         <div>
           <label htmlFor="lastName">Last Name: </label>
-          <input
-            type="text"
-            name="lastName"
-            onChange={e => this.updateStateWithInput(e, "lastName")}
-          />
+          <input type="text" name="lastName" />
         </div>
         <div>
           <label htmlFor="email">Email: </label>
-          <input
-            type="text"
-            name="email"
-            onChange={e => this.updateStateWithInput(e, "email")}
-          />
+          <input type="text" name="email" />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            name="password"
-            onChange={e => this.updateStateWithInput(e, "password")}
-          />
+          <input type="password" name="password" />
         </div>
         <div>
           <label htmlFor="confirmPass">Verify Password: </label>
-          <input
-            type="password"
-            name="confirmPass"
-            onChange={e => this.updateStateWithInput(e, "confirmPass")}
-          />
+          <input type="password" name="confirmPass" />
         </div>
         <input type="submit" />
         <p>

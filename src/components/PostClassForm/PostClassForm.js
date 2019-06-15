@@ -32,34 +32,47 @@ export default class PostClassForm extends React.Component {
       length: parseInt(length.value),
       wage: parseInt(wage.value),
       classDateDay: classDateDay.value,
-      classDateTie: classDateTime.value,
+      classDateTime: classDateTime.value,
       startDate: startDate.value,
       description: description.value,
-      postedBy: this.context.id
+      postedBy: this.context._id
     };
+    console.log(formData);
 
-    // fetch request to POST/create new class
-    fetch(`${API_URL}/dashboard/postClass`, {
+    // get JWT from context
+    const jwt = this.context.jwt;
+
+    // set fetch options
+    const options = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
       },
       body: JSON.stringify(formData)
-    })
+    };
+    console.log(options);
+
+    // fetch request to POST/create new class
+    fetch(`${API_URL}/dashboard/postClass`, options)
       .then(res => {
-        if (res.status === 422) {
+        if (res.status === 422 || !res.ok) {
           return this.setState({
             classPosted: false
           });
         }
         return res.json();
       })
-      .then(() => {
-        this.setState({
+      .then(resj => {
+        console.log(resj);
+        return this.setState({
           classPosted: true
         });
       })
       .catch(err => {
+        this.setState({
+          classPosted: false
+        });
         console.log(err);
       });
   };

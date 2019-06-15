@@ -17,15 +17,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 class App extends React.Component {
   static contextType = AuthContext;
 
-  state = {
-    user: {
-      firstName: "",
-      id: "",
-      type: ""
-    },
-    jwt: ""
-  };
-
   setJwt = jwt => {
     this.setState({
       jwt
@@ -36,7 +27,7 @@ class App extends React.Component {
     this.setState({
       user: {
         firstName: user.firstName,
-        id: user.id,
+        id: user._id,
         type: user.type
       }
     });
@@ -48,7 +39,8 @@ class App extends React.Component {
       setJwt: this.setJwt,
       setAuthUser: this.setAuthUser,
       type: this.context.user.type,
-      id: this.context.user.id
+      _id: this.context.user._id,
+      jwt: this.context.jwt
     };
 
     return (

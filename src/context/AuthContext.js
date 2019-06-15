@@ -11,7 +11,7 @@ if (localStorage.getItem("user")) {
 const AuthContext = React.createContext({
   jwt,
   user: {
-    id: "",
+    _id: "",
     firstName: "",
     type: "",
     ...user
