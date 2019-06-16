@@ -38,7 +38,6 @@ export default class PostClassForm extends React.Component {
       postedBy: this.context._id,
       datePosted: new Date()
     };
-    console.log(formData);
 
     // get JWT from context
     const jwt = this.context.jwt;

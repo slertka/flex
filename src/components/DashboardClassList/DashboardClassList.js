@@ -29,9 +29,8 @@ export default class DashboardClassList extends React.Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-    console.log(options);
-    // change this back to instructor
-    if (this.context.type === "studio") {
+
+    if (this.context.type === "instructor") {
       fetch(`${API_URL}/dashboard/classes`, options)
         .then(res => {
           return res.json();
@@ -42,6 +41,18 @@ export default class DashboardClassList extends React.Component {
           });
         })
         .catch(err => console.log(err));
+    }
+
+    if (this.context.type === "studio") {
+      const userId = this.context._id;
+      console.log(userId);
+      fetch(`${API_URL}/dashboard/${userId}`, options)
+        .then(res => res.json())
+        .then(resj =>
+          this.setState({
+            classes: resj
+          })
+        );
     }
   }
 
