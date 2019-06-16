@@ -5,6 +5,7 @@ import "./App.css";
 
 // Context
 import AuthContext from "./context/AuthContext";
+// import { API_URL } from "./config";
 
 // Components
 import Header from "./components/Header/Header";
@@ -27,20 +28,27 @@ class App extends React.Component {
     this.setState({
       user: {
         firstName: user.firstName,
-        id: user._id,
+        _id: user._id,
         type: user.type
       }
     });
   };
 
+  // refreshAuthToken = () => {
+  //   const jwt = this.context.jwt;
+  //   // return fetch(`${API_URL}/user/aauthRefresh`).
+  // }
+
   render() {
     const contextValue = {
-      firstName: this.context.user.firstName,
+      firstName: this.state.user.firstName,
       setJwt: this.setJwt,
       setAuthUser: this.setAuthUser,
-      type: this.context.user.type,
-      _id: this.context.user._id,
-      jwt: this.context.jwt
+      type: this.state.user.type,
+      _id: this.state.user._id,
+      jwt: this.state.jwt,
+      refreshAuthToken: this.refreshAuthToken,
+      createUser: this.createUser
     };
 
     return (

@@ -15,11 +15,28 @@ export default class ClassCard extends React.Component {
     });
   };
 
+  applyToClass = e => {
+    console.log(e.target.parentNode);
+  };
+
   render() {
     const applyButton =
       this.props.profile === "instructor" ? (
-        <button name="apply" className="apply-button">
+        <button
+          name="apply"
+          className="apply-button"
+          onClick={e => this.applyToClass(e)}
+        >
           <label htmlFor="apply">Click to Apply</label>
+        </button>
+      ) : (
+        ""
+      );
+
+    const deleteButton =
+      this.props.profile === "studio" ? (
+        <button name="delete" className="delete-button">
+          Delete Listing
         </button>
       ) : (
         ""
@@ -32,6 +49,7 @@ export default class ClassCard extends React.Component {
         }
       >
         {applyButton}
+        {deleteButton}
         <button name="expand" onClick={e => this.handleExpand(e)}>
           {this.state.expanded ? "Hide" : "Expand"}
         </button>

@@ -16,11 +16,15 @@ export default class DashboardClassList extends React.Component {
     super(props);
     this.state = {
       postingClass: false,
-      classes: []
+      classes: [],
+      user: {
+        firstName: "",
+        _id: null
+      }
     };
   }
 
-  componentDidMount() {
+  getClasses = () => {
     // set fetch options
     const jwt = this.context.jwt;
     const options = {
@@ -45,8 +49,7 @@ export default class DashboardClassList extends React.Component {
 
     if (this.context.type === "studio") {
       const userId = this.context._id;
-      console.log(userId);
-      fetch(`${API_URL}/dashboard/${userId}`, options)
+      fetch(`${API_URL}/dashboard/studio/${userId}`, options)
         .then(res => res.json())
         .then(resj =>
           this.setState({
@@ -54,9 +57,18 @@ export default class DashboardClassList extends React.Component {
           })
         );
     }
-  }
+  };
 
-  // utilize component did mount to make fetch request for class data associated with the user if type=studio
+  componentDidMount() {
+    this.getClasses();
+    this.setState({
+      postingClass: false,
+      user: {
+        type: this.context.type,
+        _id: this.context._id
+      }
+    });
+  }
 
   postClass(e) {
     this.setState({
@@ -71,23 +83,22 @@ export default class DashboardClassList extends React.Component {
   }
 
   render() {
+    console.log(this.context);
     // Create Class Cards
     const classes = this.state.classes;
     const classList = classes.map(props => (
       <ClassCard
-        key={props.id}
-        profile={this.props.profile}
-        {...props}
+        key={props._id}
+        profile={this.context.type}
         posting={this.state.postingClass}
+        {...props}
       />
     ));
 
     // Conditional Displays depending on profile type
-    const profile = this.context.type;
+    const profile = this.state.user.type;
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";
-    const deleteClassButton =
-      profile === "studio" ? <button>Delete</button> : "";
     const newClassButton =
       profile === "studio" ? (
         <Link to="/dashboard/post">
@@ -107,24 +118,42 @@ export default class DashboardClassList extends React.Component {
       );
 
     return (
-      <section>
-        <Route path="/dashboard">
-          <h3 className={this.state.postingClass ? "hidden" : ""}>{header}</h3>
+      <AuthContext.Consumer>
+        {value => (
+          <section>
+            <Route path="/dashboard">
+              <h3 className={this.state.postingClass ? "hidden" : ""}>
+                {header}
+              </h3>
 
-          {newClassButton}
-          {deleteClassButton}
+              {newClassButton}
 
-          <Route
-            exact
-            path="/dashboard/post"
-            render={() => {
-              return createClass;
-            }}
-          />
+              <Route
+                exact
+                path="/dashboard/post"
+                render={() => {
+                  return createClass;
+                }}
+              />
 
-          <ul>{classList}</ul>
-        </Route>
-      </section>
+              <ul>{classList}</ul>
+            </Route>
+          </section>
+        )}
+      </AuthContext.Consumer>
     );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.user.type !== this.state.user.type) {
+      console.log("user updated");
+    }
+    if (prevState.classes !== this.state.classes) {
+      console.log(prevState.classes);
+      console.log(this.state.classes);
+      this.setState({
+        postingClass: false
+      });
+    }
   }
 }

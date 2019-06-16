@@ -15,9 +15,10 @@ const AuthContext = React.createContext({
     firstName: "",
     type: "",
     ...user
-  }
-  // setJwt: () => {},
-  // setAuthUser: () => {}
+  },
+  setJwt: () => {},
+  setAuthUser: () => {},
+  refreshAuthToken: () => {}
 });
 
 export default AuthContext;

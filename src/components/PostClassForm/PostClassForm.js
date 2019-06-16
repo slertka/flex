@@ -62,11 +62,7 @@ export default class PostClassForm extends React.Component {
         }
         return res.json();
       })
-      .then(resj => {
-        return this.setState({
-          classPosted: true
-        });
-      })
+      .then(() => this.props.history.push("/dashboard"))
       .catch(err => {
         this.setState({
           classPosted: false

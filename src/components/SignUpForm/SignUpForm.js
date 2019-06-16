@@ -67,6 +67,7 @@ export default class SignUpForm extends React.Component {
         this.setState({
           userCreated: true
         });
+        console.log(this.context);
       })
       .catch(err => {
         console.log(err);
@@ -81,47 +82,51 @@ export default class SignUpForm extends React.Component {
       ""
     );
     return (
-      <form className="sign-up-form" onSubmit={e => this.createUser(e)}>
-        {redirectToDashboard}
-        <header>
-          <h3>Sign up now</h3>
-        </header>
-        <div>
-          <select name="type">
-            <option value="studio">Studio</option>
-            <option value="instructor">Instructor</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="studio">Studio: </label>
-          <input type="text" name="studio" />
-        </div>
+      <AuthContext.Consumer>
+        {() => (
+          <form className="sign-up-form" onSubmit={e => this.createUser(e)}>
+            {redirectToDashboard}
+            <header>
+              <h3>Sign up now</h3>
+            </header>
+            <div>
+              <select name="type">
+                <option value="studio">Studio</option>
+                <option value="instructor">Instructor</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="studio">Studio: </label>
+              <input type="text" name="studio" />
+            </div>
 
-        <div>
-          <label htmlFor="firstName">First Name: </label>
-          <input type="text" name="firstName" />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name: </label>
-          <input type="text" name="lastName" />
-        </div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input type="text" name="email" />
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input type="password" name="password" />
-        </div>
-        <div>
-          <label htmlFor="confirmPass">Verify Password: </label>
-          <input type="password" name="confirmPass" />
-        </div>
-        <input type="submit" />
-        <p>
-          Already joined us? <Link to="/login">Log in</Link>
-        </p>
-      </form>
+            <div>
+              <label htmlFor="firstName">First Name: </label>
+              <input type="text" name="firstName" />
+            </div>
+            <div>
+              <label htmlFor="lastName">Last Name: </label>
+              <input type="text" name="lastName" />
+            </div>
+            <div>
+              <label htmlFor="email">Email: </label>
+              <input type="text" name="email" />
+            </div>
+            <div>
+              <label htmlFor="password">Password: </label>
+              <input type="password" name="password" />
+            </div>
+            <div>
+              <label htmlFor="confirmPass">Verify Password: </label>
+              <input type="password" name="confirmPass" />
+            </div>
+            <input type="submit" />
+            <p>
+              Already joined us? <Link to="/login">Log in</Link>
+            </p>
+          </form>
+        )}
+      </AuthContext.Consumer>
     );
   }
 }
