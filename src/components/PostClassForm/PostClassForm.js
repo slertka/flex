@@ -35,7 +35,8 @@ export default class PostClassForm extends React.Component {
       classDateTime: classDateTime.value,
       startDate: startDate.value,
       description: description.value,
-      postedBy: this.context._id
+      postedBy: this.context._id,
+      datePosted: new Date()
     };
     console.log(formData);
 
@@ -51,7 +52,6 @@ export default class PostClassForm extends React.Component {
       },
       body: JSON.stringify(formData)
     };
-    console.log(options);
 
     // fetch request to POST/create new class
     fetch(`${API_URL}/dashboard/postClass`, options)
@@ -64,7 +64,6 @@ export default class PostClassForm extends React.Component {
         return res.json();
       })
       .then(resj => {
-        console.log(resj);
         return this.setState({
           classPosted: true
         });

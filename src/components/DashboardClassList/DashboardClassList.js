@@ -1,51 +1,48 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import "./DashboardClassList.css";
+import AuthContext from "../../context/AuthContext";
+import { API_URL } from "../../config";
 
+// Components
 import ClassCard from "../ClassCard/ClassCard";
 import PostClassButton from "../PostClassButton/PostClassButton";
 import PostClassForm from "../PostClassForm/PostClassForm";
-
-import AuthContext from "../../context/AuthContext";
-
-const SAMPLE_DATA = {
-  classes: [
-    {
-      id: 1,
-      type: "vinyasa",
-      wage: 35,
-      length: 60,
-      studio: "Flow & Joe",
-      startDate: new Date(2019, 6, 15),
-      classDateDay: "Monday",
-      classDateTime: "17:30",
-      description:
-        "Officia nisi dolore ex consectetur duis velit minim ex duis et voluptate labore. Voluptate ullamco laboris nulla ea occaecat irure ad Lorem irure nulla Lorem nostrud minim. Duis quis adipisicing amet sit fugiat esse nisi et minim aute."
-    },
-    {
-      id: 2,
-      type: "hatha",
-      wage: 35,
-      length: 75,
-      studio: "Corepower Yoga",
-      startDate: new Date(2019, 6, 12),
-      classDateDay: "Wednesday",
-      classDateTime: "18:30",
-      description:
-        "Minim sint qui ipsum et duis consequat dolor reprehenderit mollit. Incididunt ex tempor exercitation reprehenderit consequat elit anim. Qui amet deserunt ullamco sint voluptate. Est velit veniam amet consequat minim culpa do exercitation officia et exercitation in."
-    }
-  ]
-};
 
 export default class DashboardClassList extends React.Component {
   static contextType = AuthContext;
 
   constructor(props) {
     super(props);
-
     this.state = {
-      postingClass: false
+      postingClass: false,
+      classes: []
     };
+  }
+
+  componentDidMount() {
+    // set fetch options
+    const jwt = this.context.jwt;
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+    console.log(options);
+    // change this back to instructor
+    if (this.context.type === "studio") {
+      fetch(`${API_URL}/dashboard/classes`, options)
+        .then(res => {
+          return res.json();
+        })
+        .then(resj => {
+          return this.setState({
+            classes: resj
+          });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   // utilize component did mount to make fetch request for class data associated with the user if type=studio
@@ -64,7 +61,7 @@ export default class DashboardClassList extends React.Component {
 
   render() {
     // Create Class Cards
-    const classes = SAMPLE_DATA.classes;
+    const classes = this.state.classes;
     const classList = classes.map(props => (
       <ClassCard
         key={props.id}
