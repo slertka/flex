@@ -83,8 +83,8 @@ export default class SignUpForm extends React.Component {
     );
     return (
       <AuthContext.Consumer>
-        {() => (
-          <form className="sign-up-form" onSubmit={e => this.createUser(e)}>
+        {value => (
+          <form className="sign-up-form" onSubmit={value.createUser}>
             {redirectToDashboard}
             <header>
               <h3>Sign up now</h3>
