@@ -84,7 +84,7 @@ class App extends React.Component {
     fetch(`${API_URL}/user/signup`, options)
       .then(res => {
         if (res.status === 422) {
-          return Promise.reject(res.body);
+          return; // display error message
         }
         return res.json();
       })
@@ -98,7 +98,7 @@ class App extends React.Component {
         this.context.setAuthUser(resj.user);
         // React Router push to /dashboard
         console.log(this.context);
-        // this.props.history.push("/dashboard");
+        console.log(this.history);
       })
       .catch(err => {
         console.log(err);
