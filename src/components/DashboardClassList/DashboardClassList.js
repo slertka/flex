@@ -96,7 +96,8 @@ export default class DashboardClassList extends React.Component {
     ));
 
     // Conditional Displays depending on profile type
-    const profile = this.state.user.type;
+    console.log(this.context);
+    const profile = this.context.user.type;
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";
     const newClassButton =
@@ -118,29 +119,23 @@ export default class DashboardClassList extends React.Component {
       );
 
     return (
-      <AuthContext.Consumer>
-        {value => (
-          <section>
-            <Route path="/dashboard">
-              <h3 className={this.state.postingClass ? "hidden" : ""}>
-                {header}
-              </h3>
+      <section>
+        <Route path="/dashboard">
+          <h3 className={this.state.postingClass ? "hidden" : ""}>{header}</h3>
 
-              {newClassButton}
+          {newClassButton}
 
-              <Route
-                exact
-                path="/dashboard/post"
-                render={() => {
-                  return createClass;
-                }}
-              />
+          <Route
+            exact
+            path="/dashboard/post"
+            render={() => {
+              return createClass;
+            }}
+          />
 
-              <ul>{classList}</ul>
-            </Route>
-          </section>
-        )}
-      </AuthContext.Consumer>
+          <ul>{classList}</ul>
+        </Route>
+      </section>
     );
   }
 

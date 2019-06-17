@@ -12,9 +12,30 @@ export default class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userCreated: false
+      jwt: "",
+      user: {
+        firstName: "",
+        type: "",
+        _id: ""
+      }
     };
   }
+
+  setJwt = jwt => {
+    this.setState({
+      jwt
+    });
+  };
+
+  setAuthUser = user => {
+    this.setState({
+      user: {
+        firstName: user.firstName,
+        _id: user._id,
+        type: user.type
+      }
+    });
+  };
 
   createUser = e => {
     e.preventDefault();
@@ -60,14 +81,15 @@ export default class SignUpForm extends React.Component {
         localStorage.setItem("jwt", resj.jwt);
         localStorage.setItem("user", JSON.stringify(resj.user));
         // Store JWT in state
-        this.context.setJwt(resj.jwt);
+        this.setJwt(resj.jwt);
         // Store AuthUser in state
-        this.context.setAuthUser(resj.user);
+        this.setAuthUser(resj.user);
         // Change state for redirect
         this.setState({
           userCreated: true
         });
         console.log(this.context);
+        console.log(this.state.user);
       })
       .catch(err => {
         console.log(err);
@@ -81,52 +103,60 @@ export default class SignUpForm extends React.Component {
     ) : (
       ""
     );
-    return (
-      <AuthContext.Consumer>
-        {value => (
-          <form className="sign-up-form" onSubmit={value.createUser}>
-            {redirectToDashboard}
-            <header>
-              <h3>Sign up now</h3>
-            </header>
-            <div>
-              <select name="type">
-                <option value="studio">Studio</option>
-                <option value="instructor">Instructor</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="studio">Studio: </label>
-              <input type="text" name="studio" />
-            </div>
 
-            <div>
-              <label htmlFor="firstName">First Name: </label>
-              <input type="text" name="firstName" />
-            </div>
-            <div>
-              <label htmlFor="lastName">Last Name: </label>
-              <input type="text" name="lastName" />
-            </div>
-            <div>
-              <label htmlFor="email">Email: </label>
-              <input type="text" name="email" />
-            </div>
-            <div>
-              <label htmlFor="password">Password: </label>
-              <input type="password" name="password" />
-            </div>
-            <div>
-              <label htmlFor="confirmPass">Verify Password: </label>
-              <input type="password" name="confirmPass" />
-            </div>
-            <input type="submit" />
-            <p>
-              Already joined us? <Link to="/login">Log in</Link>
-            </p>
-          </form>
-        )}
-      </AuthContext.Consumer>
+    const contextValue = this.state.user
+      ? {
+          firstName: this.state.user.firstName,
+          _id: this.state.user._id,
+          type: this.state.user.type,
+          jwt: this.state.jwt
+        }
+      : {};
+
+    return (
+      <AuthContext.Provider value={contextValue}>
+        <form className="sign-up-form" onSubmit={e => this.createUser(e)}>
+          {/* {redirectToDashboard} */}
+          <header>
+            <h3>Sign up now</h3>
+          </header>
+          <div>
+            <select name="type">
+              <option value="studio">Studio</option>
+              <option value="instructor">Instructor</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="studio">Studio: </label>
+            <input type="text" name="studio" />
+          </div>
+
+          <div>
+            <label htmlFor="firstName">First Name: </label>
+            <input type="text" name="firstName" />
+          </div>
+          <div>
+            <label htmlFor="lastName">Last Name: </label>
+            <input type="text" name="lastName" />
+          </div>
+          <div>
+            <label htmlFor="email">Email: </label>
+            <input type="text" name="email" />
+          </div>
+          <div>
+            <label htmlFor="password">Password: </label>
+            <input type="password" name="password" />
+          </div>
+          <div>
+            <label htmlFor="confirmPass">Verify Password: </label>
+            <input type="password" name="confirmPass" />
+          </div>
+          <input type="submit" />
+          <p>
+            Already joined us? <Link to="/login">Log in</Link>
+          </p>
+        </form>
+      </AuthContext.Provider>
     );
   }
 }
