@@ -10,15 +10,14 @@ export class Dashboard extends React.Component {
   static contextType = AuthContext;
 
   render() {
-    const jwt = this.context.jwt;
-    console.log(jwt);
-
     return (
       <div>
-        {!jwt ? <Redirect to="/login" /> : ""}
-        <DashboardHeader />
-        <DashboardSearch />
-        <DashboardClassList {...this.props} />
+        <AuthContext.Consumer>
+          {/* {!jwt ? <Redirect to="/login" /> : ""} */}
+          <DashboardHeader />
+          <DashboardSearch />
+          <DashboardClassList {...this.props} />
+        </AuthContext.Consumer>
       </div>
     );
   }

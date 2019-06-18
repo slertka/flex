@@ -18,23 +18,21 @@ import Dashboard from "./components/Dashboard/Dashboard";
 class App extends React.Component {
   static contextType = AuthContext;
 
-  state = {
-    jwt: null,
-    user: {
-      _id: "",
-      firstName: "",
-      type: "",
-      ...user
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      jwt: localStorage.getItem("jwt") || "",
+      user: localStorage.getItem("user") || {
+        _id: "",
+        firstName: "",
+        type: ""
+      }
+    };
+  }
 
   setJwt = jwt => {
-    // set JWT if already stored in localStorage
-    const authToken = localStorage.getItem("jwt") || "";
-
-    // assign JWT to state
     this.setState({
-      jwt: authToken || jwt
+      jwt
     });
   };
 
@@ -54,41 +52,39 @@ class App extends React.Component {
   // }
 
   render() {
+    const contextValue = {
+      jwt: this.state.jwt,
+      firstName: this.state.user.firstName,
+      type: this.state.user.type,
+      userId: this.state.user._id,
+      setJwt: this.setJwt,
+      setAuthUser: this.setAuthUser
+    };
+
     return (
       <div className="App">
-        <Router>
-          {["/", "/about", "/login", "/signup"].map(path => (
-            <Route exact path={path} component={Header} key={path} />
-          ))}
-          <Route exact path="/" component={Details} />
-          <Route exact path="/" component={LogInForm} />
+        <AuthContext.Provider value={contextValue}>
+          <Router>
+            {["/", "/about", "/login", "/signup"].map(path => (
+              <Route exact path={path} component={Header} key={path} />
+            ))}
+            <Route exact path="/" component={Details} />
+            <Route exact path="/" component={LogInForm} />
 
-          <Route exact path="/about" component={Details} />
+            <Route exact path="/about" component={Details} />
 
-          <Route path="/login" component={LogInForm} />
+            <Route path="/login" component={LogInForm} />
 
-          <Route path="/signup" component={SignUpForm} />
+            <Route path="/signup" component={SignUpForm} />
 
-          {["/", "/about", "/login", "/signup"].map(path => (
-            <Route exact path={path} component={Footer} key={path} />
-          ))}
+            {["/", "/about", "/login", "/signup"].map(path => (
+              <Route exact path={path} component={Footer} key={path} />
+            ))}
 
-<<<<<<< HEAD
-          <Route path="/dashboard" component={Dashboard} />
-        </Router>
-      </div>
-=======
-            <Route
-              path={{
-                pathname: "/dashboard",
-                state: { user: this.state.user, jwt: this.state.jwt }
-              }}
-              component={Dashboard}
-            />
+            <Route path="/dashboard" component={Dashboard} />
           </Router>
-        </div>
-      </AuthContext.Provider>
->>>>>>> master
+        </AuthContext.Provider>
+      </div>
     );
   }
 }

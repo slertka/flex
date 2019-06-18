@@ -1,19 +1,11 @@
 import React from "react";
 
-let user = {};
-
-if (localStorage.getItem("user")) {
-  user = localStorage.getItem("user");
-  user = JSON.parse(user);
-}
-
 const AuthContext = React.createContext({
-  jwt,
+  jwt: "",
   user: {
     _id: "",
     firstName: "",
-    type: "",
-    ...user
+    type: ""
   },
   setJwt: () => {},
   setAuthUser: () => {},
