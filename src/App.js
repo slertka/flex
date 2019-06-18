@@ -18,17 +18,14 @@ import Dashboard from "./components/Dashboard/Dashboard";
 class App extends React.Component {
   static contextType = AuthContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      jwt: "",
-      user: {
-        _id: "",
-        firstName: "",
-        type: ""
-      }
-    };
-  }
+  state = {
+    jwt: "",
+    user: {
+      _id: "",
+      firstName: "",
+      type: ""
+    }
+  };
 
   setJwt = jwt => {
     this.setState({
@@ -56,11 +53,12 @@ class App extends React.Component {
       jwt: this.state.jwt,
       firstName: this.state.user.firstName,
       type: this.state.user.type,
-      userId: this.state.user._id,
+      _id: this.state.user._id,
       setJwt: this.setJwt,
       setAuthUser: this.setAuthUser
     };
-
+    console.log(this.state);
+    console.log(this.context);
     return (
       <div className="App">
         <AuthContext.Provider value={contextValue}>

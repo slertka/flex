@@ -14,7 +14,6 @@ export class Dashboard extends React.Component {
       <div>
         <AuthContext.Consumer>
           {value => {
-            console.log(value);
             return (
               <React.Fragment>
                 {!value.jwt ? <Redirect to="/login" /> : ""}

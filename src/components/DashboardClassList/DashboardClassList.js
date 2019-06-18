@@ -16,11 +16,7 @@ export default class DashboardClassList extends React.Component {
     super(props);
     this.state = {
       postingClass: false,
-      classes: [],
-      user: {
-        firstName: "",
-        _id: null
-      }
+      classes: []
     };
   }
 
@@ -96,8 +92,7 @@ export default class DashboardClassList extends React.Component {
     ));
 
     // Conditional Displays depending on profile type
-    console.log(this.context);
-    const profile = this.context.user.type;
+    const profile = this.context.type;
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";
     const newClassButton =
@@ -137,18 +132,5 @@ export default class DashboardClassList extends React.Component {
         </Route>
       </section>
     );
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.user.type !== this.state.user.type) {
-      console.log("user updated");
-    }
-    if (prevState.classes !== this.state.classes) {
-      console.log(prevState.classes);
-      console.log(this.state.classes);
-      this.setState({
-        postingClass: false
-      });
-    }
   }
 }

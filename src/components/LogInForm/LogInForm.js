@@ -8,32 +8,8 @@ import { API_URL } from "../../config";
 export default class LogInForm extends React.Component {
   static contextType = AuthContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      jwt: "",
-      user: {
-        firstName: "",
-        type: "",
-        _id: ""
-      }
-    };
-  }
-
-  setJwt = jwt => {
-    this.setState({
-      jwt
-    });
-  };
-
-  setAuthUser = user => {
-    this.setState({
-      user: {
-        firstName: user.firstName,
-        _id: user._id,
-        type: user.type
-      }
-    });
+  state = {
+    loginSuccess: false
   };
 
   loginUser = e => {
@@ -88,11 +64,11 @@ export default class LogInForm extends React.Component {
 
     return (
       <div className="log-in-form">
-        {redirectToDashboard}
+        {/* {redirectToDashboard} */}
         <header>
           <h3>Log in</h3>
         </header>
-        <form onSubmit={e => this.loginUser(e)}>
+        <form onSubmit={this.loginUser}>
           <div>
             <label htmlFor="user">Email: </label>
             <input type="text" name="user" placeholder="Email Address" />
