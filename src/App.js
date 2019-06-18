@@ -21,8 +21,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jwt: localStorage.getItem("jwt") || "",
-      user: localStorage.getItem("user") || {
+      jwt: "",
+      user: {
         _id: "",
         firstName: "",
         type: ""

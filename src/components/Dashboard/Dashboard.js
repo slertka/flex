@@ -13,10 +13,17 @@ export class Dashboard extends React.Component {
     return (
       <div>
         <AuthContext.Consumer>
-          {/* {!jwt ? <Redirect to="/login" /> : ""} */}
-          <DashboardHeader />
-          <DashboardSearch />
-          <DashboardClassList {...this.props} />
+          {value => {
+            console.log(value);
+            return (
+              <React.Fragment>
+                {!value.jwt ? <Redirect to="/login" /> : ""}
+                <DashboardHeader />
+                <DashboardSearch />
+                <DashboardClassList />
+              </React.Fragment>
+            );
+          }}
         </AuthContext.Consumer>
       </div>
     );
