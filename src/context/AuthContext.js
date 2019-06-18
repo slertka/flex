@@ -1,7 +1,6 @@
 import React from "react";
 
 let user = {};
-let jwt = localStorage.getItem("jwt") || "";
 
 if (localStorage.getItem("user")) {
   user = localStorage.getItem("user");
