@@ -18,9 +18,23 @@ import Dashboard from "./components/Dashboard/Dashboard";
 class App extends React.Component {
   static contextType = AuthContext;
 
+  state = {
+    jwt: null,
+    user: {
+      _id: "",
+      firstName: "",
+      type: "",
+      ...user
+    }
+  };
+
   setJwt = jwt => {
+    // set JWT if already stored in localStorage
+    const authToken = localStorage.getItem("jwt") || "";
+
+    // assign JWT to state
     this.setState({
-      jwt
+      jwt: authToken || jwt
     });
   };
 
@@ -71,7 +85,13 @@ class App extends React.Component {
               <Route exact path={path} component={Footer} key={path} />
             ))}
 
-            <Route path="/dashboard" component={Dashboard} />
+            <Route
+              path={{
+                pathname: "/dashboard",
+                state: { user: this.state.user, jwt: this.state.jwt }
+              }}
+              component={Dashboard}
+            />
           </Router>
         </div>
       </AuthContext.Provider>
