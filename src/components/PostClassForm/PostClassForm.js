@@ -1,9 +1,7 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./PostClassForm.css";
 import AuthContext from "../../context/AuthContext";
-
-import { API_URL } from "../../config";
 
 export default class PostClassForm extends React.Component {
   static contextType = AuthContext;

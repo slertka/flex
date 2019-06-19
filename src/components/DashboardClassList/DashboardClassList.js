@@ -29,6 +29,7 @@ export default class DashboardClassList extends React.Component {
     const options = {
       method: "GET",
       headers: {
+        "Content-Type": "applicaton/json",
         Authorization: `Bearer ${jwt}`
       }
     };
@@ -51,7 +52,6 @@ export default class DashboardClassList extends React.Component {
 
     if (this.context.user.type === "studio") {
       const userId = this.context.user._id;
-      console.log(userId);
       fetch(`${API_URL}/dashboard/studio/${userId}`, options)
         .then(res => {
           if (!res.ok) {
@@ -94,7 +94,6 @@ export default class DashboardClassList extends React.Component {
       postedBy: this.context.user._id,
       datePosted: new Date()
     };
-    console.log(formData);
 
     // get JWT from context
     const jwt = this.context.jwt;
@@ -136,6 +135,39 @@ export default class DashboardClassList extends React.Component {
       });
   };
 
+  applyToClass = classId => {
+    const jwt = this.context.jwt;
+    console.log(jwt);
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      },
+      body: JSON.stringify({ userId: this.context.user._id })
+    };
+    console.log(options);
+    console.log(`${API_URL}/dashboard/class/${classId}`);
+
+    fetch(`${API_URL}/dashboard/class/${classId}`, options)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject("error");
+        }
+        return res.json();
+      })
+      .then(resj => {
+        console.log(resj);
+        console.log("user applied to class", classId);
+      })
+      .catch(err => console.log(err));
+  };
+
+  deleteClass = e => {
+    const _id = e.target;
+    console.log(_id);
+  };
+
   componentDidMount() {
     this.getClasses();
     this.setState({
@@ -162,6 +194,8 @@ export default class DashboardClassList extends React.Component {
         key={props._id}
         profile={this.context.user.type}
         posting={this.state.postingClass}
+        deleteClass={e => this.deleteClass(e)}
+        applyToClass={() => this.applyToClass(props._id)}
         {...props}
       />
     ));
@@ -190,7 +224,7 @@ export default class DashboardClassList extends React.Component {
               <Route
                 exact
                 path="/dashboard/post"
-                render={props => {
+                render={() => {
                   return (
                     <PostClassForm
                       cancelPost={e => this.cancelPost(e)}
@@ -210,5 +244,14 @@ export default class DashboardClassList extends React.Component {
         </Route>
       </section>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.location.pathname === "/dashboard/post" &&
+      this.props.location.pathname === "/dashboard"
+    ) {
+      this.getClasses();
+    }
   }
 }

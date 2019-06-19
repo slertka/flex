@@ -5,7 +5,6 @@ import "./App.css";
 
 // Context
 import AuthContext from "./context/AuthContext";
-import { API_URL } from "./config";
 
 // Components
 import Header from "./components/Header/Header";
