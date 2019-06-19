@@ -33,38 +33,39 @@ export default class DashboardClassList extends React.Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-
-    if (this.context.user.type === "instructor") {
-      fetch(`${API_URL}/dashboard/classes`, options)
-        .then(res => {
-          if (!res.ok) {
-            return Promise.reject("error");
-          }
-          return res.json();
-        })
-        .then(resj => {
-          return this.setState({
-            classes: resj
-          });
-        })
-        .catch(() => this.setState({ jwtExpired: true }));
-    }
-
-    if (this.context.user.type === "studio") {
-      const userId = this.context.user._id;
-      fetch(`${API_URL}/dashboard/studio/${userId}`, options)
-        .then(res => {
-          if (!res.ok) {
-            return Promise.reject("error");
-          }
-          return res.json();
-        })
-        .then(resj =>
-          this.setState({
-            classes: resj
+    if (this.context.user) {
+      if (this.context.user.type === "instructor") {
+        fetch(`${API_URL}/dashboard/classes`, options)
+          .then(res => {
+            if (!res.ok) {
+              return Promise.reject("error");
+            }
+            return res.json();
           })
-        )
-        .catch(() => this.setState({ jwtExpired: true }));
+          .then(resj => {
+            return this.setState({
+              classes: resj
+            });
+          })
+          .catch(() => this.setState({ jwtExpired: true }));
+      }
+
+      if (this.context.user.type === "studio") {
+        const userId = this.context.user._id;
+        fetch(`${API_URL}/dashboard/studio/${userId}`, options)
+          .then(res => {
+            if (!res.ok) {
+              return Promise.reject("error");
+            }
+            return res.json();
+          })
+          .then(resj =>
+            this.setState({
+              classes: resj
+            })
+          )
+          .catch(() => this.setState({ jwtExpired: true }));
+      }
     }
   };
 
@@ -163,9 +164,20 @@ export default class DashboardClassList extends React.Component {
       .catch(err => console.log(err));
   };
 
-  deleteClass = e => {
-    const _id = e.target;
-    console.log(_id);
+  deleteClass = classId => {
+    const jwt = this.context.jwt;
+
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    fetch(`${API_URL}/dashboard/class/${classId}`, options)
+      .then(res => res.json())
+      .then(() => this.getClasses());
   };
 
   componentDidMount() {
@@ -194,14 +206,14 @@ export default class DashboardClassList extends React.Component {
         key={props._id}
         profile={this.context.user.type}
         posting={this.state.postingClass}
-        deleteClass={e => this.deleteClass(e)}
+        deleteClass={() => this.deleteClass(props._id)}
         applyToClass={() => this.applyToClass(props._id)}
         {...props}
       />
     ));
 
     // Conditional Displays depending on profile type
-    const profile = this.context.user.type;
+    const profile = this.context.user ? this.context.user.type : "";
     // Change header
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";

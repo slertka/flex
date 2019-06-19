@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
 import DashboardHeader from "../DashboardHeader/DashboardHeader";
@@ -15,7 +16,7 @@ export class Dashboard extends React.Component {
           {value => {
             return (
               <React.Fragment>
-                {/* {!value.jwt ? <Redirect to="/login" /> : ""} */}
+                {!value.jwt ? <Redirect to="/login" /> : ""}
                 <DashboardHeader />
                 <DashboardSearch />
                 <DashboardClassList {...this.props} />
