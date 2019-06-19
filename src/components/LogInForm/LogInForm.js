@@ -64,7 +64,7 @@ export default class LogInForm extends React.Component {
 
     return (
       <div className="log-in-form">
-        {/* {redirectToDashboard} */}
+        {redirectToDashboard}
         <header>
           <h3>Log in</h3>
         </header>

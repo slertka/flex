@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Redirect } from "react-router-dom";
 import "./DashboardClassList.css";
 import AuthContext from "../../context/AuthContext";
 import { API_URL } from "../../config";
@@ -14,9 +14,12 @@ export default class DashboardClassList extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       postingClass: false,
-      classes: []
+      postedClassSuccess: false,
+      classes: [],
+      jwtExpired: false
     };
   }
 
@@ -30,9 +33,12 @@ export default class DashboardClassList extends React.Component {
       }
     };
 
-    if (this.context.type === "instructor") {
+    if (this.context.user.type === "instructor") {
       fetch(`${API_URL}/dashboard/classes`, options)
         .then(res => {
+          if (!res.ok) {
+            return Promise.reject("error");
+          }
           return res.json();
         })
         .then(resj => {
@@ -40,29 +46,100 @@ export default class DashboardClassList extends React.Component {
             classes: resj
           });
         })
-        .catch(err => console.log(err));
+        .catch(() => this.setState({ jwtExpired: true }));
     }
 
-    if (this.context.type === "studio") {
-      const userId = this.context._id;
+    if (this.context.user.type === "studio") {
+      const userId = this.context.user._id;
+      console.log(userId);
       fetch(`${API_URL}/dashboard/studio/${userId}`, options)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            return Promise.reject("error");
+          }
+          return res.json();
+        })
         .then(resj =>
           this.setState({
             classes: resj
           })
-        );
+        )
+        .catch(() => this.setState({ jwtExpired: true }));
     }
+  };
+
+  createClass = e => {
+    e.preventDefault();
+
+    // pull data from form inputs
+    const {
+      type,
+      length,
+      wage,
+      classDateDay,
+      classDateTime,
+      startDate,
+      description
+    } = e.target;
+
+    // create form data object
+    const formData = {
+      type: type.value,
+      length: parseInt(length.value),
+      wage: parseInt(wage.value),
+      classDateDay: classDateDay.value,
+      classDateTime: classDateTime.value,
+      startDate: startDate.value,
+      description: description.value,
+      postedBy: this.context.user._id,
+      datePosted: new Date()
+    };
+    console.log(formData);
+
+    // get JWT from context
+    const jwt = this.context.jwt;
+
+    // set fetch options
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      },
+      body: JSON.stringify(formData)
+    };
+
+    // fetch request to POST/create new class
+    fetch(`${API_URL}/dashboard/postClass`, options)
+      .then(res => {
+        if (res.status === 422 || !res.ok) {
+          return this.setState({
+            classPostedSuccess: false
+          });
+        }
+        return res.json();
+      })
+      .then(resj => {
+        // console.log(resj);
+        this.props.history.push("/dashboard");
+        return this.setState({
+          classPostedSuccess: true,
+          postingClass: false,
+          classes: [...this.state.classes, resj]
+        });
+      })
+      .catch(err => {
+        this.setState({
+          classPostedSuccess: false
+        });
+        console.log(err);
+      });
   };
 
   componentDidMount() {
     this.getClasses();
     this.setState({
-      postingClass: false,
-      user: {
-        type: this.context.type,
-        _id: this.context._id
-      }
+      postingClass: false
     });
   }
 
@@ -79,56 +156,57 @@ export default class DashboardClassList extends React.Component {
   }
 
   render() {
-    console.log(this.context);
     // Create Class Cards
-    const classes = this.state.classes;
-    const classList = classes.map(props => (
+    const classList = this.state.classes.map(props => (
       <ClassCard
         key={props._id}
-        profile={this.context.type}
+        profile={this.context.user.type}
         posting={this.state.postingClass}
         {...props}
       />
     ));
 
     // Conditional Displays depending on profile type
-    const profile = this.context.type;
+    const profile = this.context.user.type;
+    // Change header
     const header =
       profile === "instructor" ? "Open Positions" : "Your Posted Positions";
-    const newClassButton =
-      profile === "studio" ? (
-        <Link to="/dashboard/post">
-          <PostClassButton
-            editing={this.state.postingClass}
-            clickHandler={e => this.postClass(e)}
-          />
-        </Link>
-      ) : (
-        ""
-      );
-    const createClass =
-      profile === "studio" ? (
-        <PostClassForm cancelPost={e => this.cancelPost(e)} />
-      ) : (
-        ""
-      );
 
     return (
       <section>
+        {this.state.jwtExpired ? <Redirect to="/login" /> : ""}
+
         <Route path="/dashboard">
           <h3 className={this.state.postingClass ? "hidden" : ""}>{header}</h3>
 
-          {newClassButton}
+          {profile === "studio" ? (
+            <>
+              <Link to="/dashboard/post">
+                <PostClassButton
+                  editing={this.state.postingClass}
+                  clickHandler={e => this.postClass(e)}
+                />
+              </Link>
+              <Route
+                exact
+                path="/dashboard/post"
+                render={props => {
+                  return (
+                    <PostClassForm
+                      cancelPost={e => this.cancelPost(e)}
+                      handlePostClass={e => this.createClass(e)}
+                    />
+                  );
+                }}
+              />
+            </>
+          ) : (
+            ""
+          )}
 
-          <Route
-            exact
-            path="/dashboard/post"
-            render={() => {
-              return createClass;
-            }}
-          />
-
-          <ul>{classList}</ul>
+          <ul>
+            <Route exact path="/dashboard" render={() => classList} />
+          </ul>
         </Route>
       </section>
     );

@@ -16,10 +16,10 @@ export class Dashboard extends React.Component {
           {value => {
             return (
               <React.Fragment>
-                {!value.jwt ? <Redirect to="/login" /> : ""}
+                {/* {!value.jwt ? <Redirect to="/login" /> : ""} */}
                 <DashboardHeader />
                 <DashboardSearch />
-                <DashboardClassList />
+                <DashboardClassList {...this.props} />
               </React.Fragment>
             );
           }}

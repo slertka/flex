@@ -16,7 +16,7 @@ export default class ClassCard extends React.Component {
   };
 
   applyToClass = e => {
-    console.log(e.target.parentNode);
+    console.log(e.target.value);
   };
 
   render() {

@@ -8,79 +8,9 @@ import { API_URL } from "../../config";
 export default class PostClassForm extends React.Component {
   static contextType = AuthContext;
 
-  state = {
-    classPosted: null
-  };
-
-  createClass = e => {
-    e.preventDefault();
-
-    // pull data from form inputs
-    const {
-      type,
-      length,
-      wage,
-      classDateDay,
-      classDateTime,
-      startDate,
-      description
-    } = e.target;
-
-    // create form data object
-    const formData = {
-      type: type.value,
-      length: parseInt(length.value),
-      wage: parseInt(wage.value),
-      classDateDay: classDateDay.value,
-      classDateTime: classDateTime.value,
-      startDate: startDate.value,
-      description: description.value,
-      postedBy: this.context._id,
-      datePosted: new Date()
-    };
-
-    // get JWT from context
-    const jwt = this.context.jwt;
-
-    // set fetch options
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`
-      },
-      body: JSON.stringify(formData)
-    };
-
-    // fetch request to POST/create new class
-    fetch(`${API_URL}/dashboard/postClass`, options)
-      .then(res => {
-        if (res.status === 422 || !res.ok) {
-          return this.setState({
-            classPosted: false
-          });
-        }
-        return res.json();
-      })
-      .then(() => this.props.history.push("/dashboard"))
-      .catch(err => {
-        this.setState({
-          classPosted: false
-        });
-        console.log(err);
-      });
-  };
-
   render() {
-    const redirectToDashboard = this.state.classPosted ? (
-      <Redirect to="/dashboard" />
-    ) : (
-      ""
-    );
-
     return (
-      <form onSubmit={e => this.createClass(e)}>
-        {redirectToDashboard}
+      <form onSubmit={this.props.handlePostClass}>
         <h3>Post a New Class</h3>
         <div>
           <label htmlFor="type">Class Format</label>

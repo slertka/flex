@@ -19,12 +19,8 @@ class App extends React.Component {
   static contextType = AuthContext;
 
   state = {
-    jwt: "",
-    user: {
-      _id: "",
-      firstName: "",
-      type: ""
-    }
+    jwt: localStorage.getItem("jwt"),
+    user: JSON.parse(localStorage.getItem("user"))
   };
 
   setJwt = jwt => {
@@ -43,6 +39,17 @@ class App extends React.Component {
     });
   };
 
+  componentDidMount() {
+    // if (localStorage.getItem("jwt")) {
+    //   console.log("storing local jwt in state");
+    //   this.setJwt(localStorage.getItem("jwt"));
+    // }
+    // if (localStorage.getItem("user")) {
+    //   console.log("storing local user in state");
+    //   this.setAuthUser(JSON.parse(localStorage.getItem("user")));
+    // }
+  }
+
   // refreshAuthToken = () => {
   //   const jwt = this.context.jwt;
   //   // return fetch(`${API_URL}/user/aauthRefresh`).
@@ -51,14 +58,10 @@ class App extends React.Component {
   render() {
     const contextValue = {
       jwt: this.state.jwt,
-      firstName: this.state.user.firstName,
-      type: this.state.user.type,
-      _id: this.state.user._id,
+      user: this.state.user,
       setJwt: this.setJwt,
       setAuthUser: this.setAuthUser
     };
-    console.log(this.state);
-    console.log(this.context);
     return (
       <div className="App">
         <AuthContext.Provider value={contextValue}>
