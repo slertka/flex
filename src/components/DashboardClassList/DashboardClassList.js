@@ -33,9 +33,11 @@ export default class DashboardClassList extends React.Component {
         Authorization: `Bearer ${jwt}`
       }
     };
+    const userId = this.context.user._id;
+
     if (this.context.user) {
       if (this.context.user.type === "instructor") {
-        fetch(`${API_URL}/dashboard/classes`, options)
+        fetch(`${API_URL}/dashboard/classes/${userId}`, options)
           .then(res => {
             if (!res.ok) {
               return Promise.reject("error");
@@ -51,7 +53,6 @@ export default class DashboardClassList extends React.Component {
       }
 
       if (this.context.user.type === "studio") {
-        const userId = this.context.user._id;
         fetch(`${API_URL}/dashboard/studio/${userId}`, options)
           .then(res => {
             if (!res.ok) {
