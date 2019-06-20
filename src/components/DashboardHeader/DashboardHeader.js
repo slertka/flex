@@ -22,7 +22,6 @@ export default class DashboardHeader extends React.Component {
 
     return (
       <div>
-        {/* {!loggedIn ? <Redirect to="/" /> : ""} */}
         <header role="banner">
           <h1>Welcome, {firstName}!</h1>
         </header>

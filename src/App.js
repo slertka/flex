@@ -38,22 +38,6 @@ class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    // if (localStorage.getItem("jwt")) {
-    //   console.log("storing local jwt in state");
-    //   this.setJwt(localStorage.getItem("jwt"));
-    // }
-    // if (localStorage.getItem("user")) {
-    //   console.log("storing local user in state");
-    //   this.setAuthUser(JSON.parse(localStorage.getItem("user")));
-    // }
-  }
-
-  // refreshAuthToken = () => {
-  //   const jwt = this.context.jwt;
-  //   // return fetch(`${API_URL}/user/aauthRefresh`).
-  // }
-
   render() {
     const contextValue = {
       jwt: this.state.jwt,

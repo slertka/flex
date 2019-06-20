@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import { API_URL } from "../../config";
 
 import DashboardHeader from "../DashboardHeader/DashboardHeader";
 import DashboardSearch from "../DashboardSearch/DashboardSearch";
@@ -8,6 +9,30 @@ import DashboardClassList from "../DashboardClassList/DashboardClassList";
 
 export class Dashboard extends React.Component {
   static contextType = AuthContext;
+
+  refreshAuthToken = jwt => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+    fetch(`${API_URL}/user/auth/refresh`, options)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject;
+        }
+        return res.json();
+      })
+      .then(resj => {
+        this.context.setJwt(resj.jwt);
+      });
+  };
+
+  componentDidMount() {
+    setInterval(this.refreshAuthToken(this.context.jwt), 3500000);
+  }
 
   render() {
     return (

@@ -138,7 +138,6 @@ export default class DashboardClassList extends React.Component {
 
   applyToClass = classId => {
     const jwt = this.context.jwt;
-    console.log(jwt);
     const options = {
       method: "PUT",
       headers: {
@@ -147,19 +146,15 @@ export default class DashboardClassList extends React.Component {
       },
       body: JSON.stringify({ userId: this.context.user._id })
     };
-    console.log(options);
-    console.log(`${API_URL}/dashboard/class/${classId}`);
 
     fetch(`${API_URL}/dashboard/class/${classId}`, options)
       .then(res => {
-        if (!res.ok) {
-          return Promise.reject("error");
-        }
         return res.json();
       })
       .then(resj => {
-        console.log(resj);
-        console.log("user applied to class", classId);
+        if (resj.code === 244) {
+          alert("You already applied for this class!");
+        }
       })
       .catch(err => console.log(err));
   };
