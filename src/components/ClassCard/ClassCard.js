@@ -85,8 +85,8 @@ export default class ClassCard extends React.Component {
       profile === "instructor" ? (
         <button
           name="apply"
-          className="apply-button"
           onClick={this.props.applyToClass}
+          className={this.props.applied ? "hidden apply-button" : ""}
         >
           <label htmlFor="apply">Click to Apply</label>
         </button>
