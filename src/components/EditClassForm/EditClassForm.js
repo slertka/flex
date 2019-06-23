@@ -7,7 +7,7 @@ export default class EditClassForm extends React.Component {
       ? this.props.startDate.substring(0, 10)
       : "";
     return (
-      <form>
+      <form onSubmit={e => this.props.handleEditClass(e, this.props._id)}>
         {!this.props.type ? <Redirect to="/dashboard" /> : ""}
         <h3>Edit Class</h3>
         <div>

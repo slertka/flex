@@ -28,6 +28,7 @@ export default class DashboardClassList extends React.Component {
     };
   }
 
+  // Functions that modify the database / ajax requests
   getClasses = () => {
     // set fetch options
     const jwt = this.context.jwt;
@@ -175,7 +176,7 @@ export default class DashboardClassList extends React.Component {
         return res.json();
       })
       .then(resj => {
-        if (resj.code === 244) {
+        if (resj.code === 422) {
           alert("You already applied for this class!");
         }
         this.getClasses();
@@ -186,12 +187,56 @@ export default class DashboardClassList extends React.Component {
       .catch(err => console.log(err));
   };
 
-  editClass = props => {
-    console.log(props);
-    this.setState({
-      editingClass: true,
-      editClassProps: props
-    });
+  editExistingClass = (e, _id) => {
+    e.preventDefault();
+    const {
+      type,
+      length,
+      wage,
+      classDateDay,
+      classDateTime,
+      startDate,
+      description
+    } = e.target;
+
+    const formData = {
+      type: type.value,
+      length: parseInt(length.value),
+      wage: parseInt(wage.value),
+      classDateDay: classDateDay.value,
+      classDateTime: classDateTime.value,
+      startDate: startDate.value,
+      description: description.value
+    };
+
+    const jwt = this.context.jwt;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      },
+      body: JSON.stringify(formData)
+    };
+
+    fetch(`${API_URL}/dashboard/edit/${_id}`, options)
+      .then(res => {
+        if (res.code === 422) {
+          return Promise.reject("error");
+        }
+        return res.json();
+      })
+      .then(_class => {
+        this.getClasses();
+        return this.setState({
+          editingClass: false,
+          postingClass: false,
+          editClassProps: {}
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   deleteClass = classId => {
@@ -218,9 +263,17 @@ export default class DashboardClassList extends React.Component {
     });
   }
 
+  // Functions to set state & modify the display of the application
   postClass = () => {
     this.setState({
       postingClass: true
+    });
+  };
+
+  editClass = props => {
+    this.setState({
+      editingClass: true,
+      editClassProps: props
     });
   };
 
@@ -311,6 +364,7 @@ export default class DashboardClassList extends React.Component {
                 return (
                   <EditClassForm
                     cancelEditing={() => this.cancelEditing()}
+                    handleEditClass={(e, _id) => this.editExistingClass(e, _id)}
                     {...this.state.editClassProps}
                   />
                 );
