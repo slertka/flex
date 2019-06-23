@@ -34,6 +34,7 @@ export default class ClassCard extends React.Component {
     return timeDisplay;
   };
 
+  // Display date as Month DD, YYYY
   convertDate = date => {
     let year = date.substring(0, 4);
     let month;
@@ -120,6 +121,12 @@ export default class ClassCard extends React.Component {
         ""
       );
 
+    const withdrawAppButton = this.props.applied ? (
+      <button onClick={this.props.withdrawApplication}>Withdraw</button>
+    ) : (
+      ""
+    );
+
     let yogaType;
     switch (this.props.type) {
       case "open":
@@ -152,6 +159,7 @@ export default class ClassCard extends React.Component {
         {applyButton}
         {editButton}
         {deleteButton}
+        {withdrawAppButton}
 
         {profile === "instructor" && this.props.description === "" ? (
           ""
@@ -166,7 +174,8 @@ export default class ClassCard extends React.Component {
         <h5>
           {this.props.classDateDay.charAt(0).toUpperCase() +
             this.props.classDateDay.slice(1)}
-          s @ {this.convertTime(this.props.classDateTime)}
+          s @ {this.convertTime(this.props.classDateTime)}{" "}
+          {`(${this.props.length} minutes)`}
         </h5>
         <h5>Start Date: {this.convertDate(this.props.startDate)}</h5>
         {profile === "studio" ? (

@@ -171,7 +171,7 @@ export default class DashboardClassList extends React.Component {
       body: JSON.stringify({ userId: this.context.user._id })
     };
 
-    fetch(`${API_URL}/dashboard/class/${classId}`, options)
+    fetch(`${API_URL}/dashboard/class/apply/${classId}`, options)
       .then(res => {
         return res.json();
       })
@@ -180,11 +180,28 @@ export default class DashboardClassList extends React.Component {
           alert("You already applied for this class!");
         }
         this.getClasses();
-        return this.setState({
-          classesApplied: [...this.state.classesApplied, resj]
-        });
       })
       .catch(err => console.log(err));
+  };
+
+  withdrawApplication = classId => {
+    const jwt = this.context.jwt;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`
+      },
+      body: JSON.stringify({
+        userId: this.context.user._id
+      })
+    };
+
+    fetch(`${API_URL}/dashboard/class/withdraw/${classId}`, options)
+      .then(res => res.json())
+      .then(_class => {
+        this.getClasses();
+      });
   };
 
   editExistingClass = (e, _id) => {
@@ -316,6 +333,7 @@ export default class DashboardClassList extends React.Component {
         profile={this.context.user.type}
         posting={this.state.postingClass}
         applied={true}
+        withdrawApplication={() => this.withdrawApplication(props._id)}
         {...props}
       />
     ));
