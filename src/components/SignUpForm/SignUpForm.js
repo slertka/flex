@@ -1,7 +1,9 @@
 import React from "react";
 import "./SignUpForm.css";
-
 import { Link, Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Animated } from "react-animated-css";
 import { API_URL } from "../../config";
 
 import AuthContext from "../../context/AuthContext";
@@ -10,7 +12,8 @@ export default class SignUpForm extends React.Component {
   static contextType = AuthContext;
 
   state = {
-    userCreated: false
+    userCreated: false,
+    hasInvalidField: false
   };
 
   createUser = e => {
@@ -46,14 +49,18 @@ export default class SignUpForm extends React.Component {
 
     fetch(`${API_URL}/user/signup`, options)
       .then(res => {
-        if (res.status === 422) {
-          return this.setState({
-            userCreated: false
-          });
-        }
         return res.json();
       })
       .then(resj => {
+        if (resj.code === 422) {
+          return this.setState({
+            userCreated: false,
+            errorLocation: resj.location,
+            errorMesssage: resj.message,
+            hasInvalidField: true
+          });
+        }
+
         // store JWT and user in local storage
         localStorage.setItem("jwt", resj.jwt);
         localStorage.setItem("user", JSON.stringify(resj.user));
@@ -79,42 +86,55 @@ export default class SignUpForm extends React.Component {
       ""
     );
 
+    const unsuccessfulSignUpAlert = this.state.hasInvalidField ? (
+      <Animated animationInDelay={50}>
+        <div className="success-alert">
+          {this.state.errorMesssage} Please try again.
+          <FontAwesomeIcon icon={faTimes} className="exit" />
+        </div>
+      </Animated>
+    ) : (
+      ""
+    );
+
     return (
       <form className="sign-up-form" onSubmit={e => this.createUser(e)}>
         {redirectToDashboard}
+        {unsuccessfulSignUpAlert}
         <header>
           <h3>Sign up now</h3>
         </header>
         <div>
-          <select name="type">
+          <select name="type" required>
+            <option value="">Select Profile Type</option>
             <option value="studio">Studio</option>
             <option value="instructor">Instructor</option>
           </select>
         </div>
         <div>
           <label htmlFor="studio">Studio: </label>
-          <input type="text" name="studio" />
+          <input type="text" name="studio" required />
         </div>
 
         <div>
           <label htmlFor="firstName">First Name: </label>
-          <input type="text" name="firstName" />
+          <input type="text" name="firstName" required />
         </div>
         <div>
           <label htmlFor="lastName">Last Name: </label>
-          <input type="text" name="lastName" />
+          <input type="text" name="lastName" required />
         </div>
         <div>
           <label htmlFor="email">Email: </label>
-          <input type="text" name="email" />
+          <input type="text" name="email" required />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" name="password" />
+          <input type="password" name="password" required />
         </div>
         <div>
           <label htmlFor="confirmPass">Verify Password: </label>
-          <input type="password" name="confirmPass" />
+          <input type="password" name="confirmPass" required />
         </div>
         <input type="submit" />
         <p>

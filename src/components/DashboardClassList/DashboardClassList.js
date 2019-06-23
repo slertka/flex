@@ -3,6 +3,9 @@ import { Link, Route, Redirect } from "react-router-dom";
 import "./DashboardClassList.css";
 import AuthContext from "../../context/AuthContext";
 import { API_URL } from "../../config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Animated } from "react-animated-css";
 
 // Components
 import ClassCard from "../ClassCard/ClassCard";
@@ -19,9 +22,12 @@ export default class DashboardClassList extends React.Component {
     this.state = {
       postingClass: false,
       editingClass: false,
-      postedClassSuccess: false,
       jwtExpired: false,
       openView: true,
+      postedClassSuccess: false,
+      deleteClassSuccess: false,
+      appliedClassSuccess: false,
+      withdrawClassSuccess: false,
       classes: [],
       classesApplied: [],
       editClassProps: {}
@@ -39,7 +45,7 @@ export default class DashboardClassList extends React.Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-    const userId = this.context.user._id;
+    const userId = this.context.user ? this.context.user._id : "";
 
     if (this.context.user) {
       if (this.context.user.type === "instructor") {
@@ -147,14 +153,14 @@ export default class DashboardClassList extends React.Component {
         this.props.history.push("/dashboard");
         this.getClasses();
         return this.setState({
-          classPostedSuccess: true,
+          postedClassSuccess: true,
           postingClass: false,
           classes: [...this.state.classes, resj]
         });
       })
       .catch(err => {
         this.setState({
-          classPostedSuccess: false
+          postedClassSuccess: false
         });
         console.log(err);
       });
@@ -180,6 +186,9 @@ export default class DashboardClassList extends React.Component {
           alert("You already applied for this class!");
         }
         this.getClasses();
+        this.setState({
+          appliedClassSuccess: true
+        });
       })
       .catch(err => console.log(err));
   };
@@ -201,6 +210,9 @@ export default class DashboardClassList extends React.Component {
       .then(res => res.json())
       .then(_class => {
         this.getClasses();
+        this.setState({
+          withdrawClassSuccess: true
+        });
       });
   };
 
@@ -269,7 +281,12 @@ export default class DashboardClassList extends React.Component {
 
     fetch(`${API_URL}/dashboard/class/${classId}`, options)
       .then(res => res.json())
-      .then(() => this.getClasses());
+      .then(() => {
+        this.getClasses();
+        this.setState({
+          deleteClassSuccess: true
+        });
+      });
   };
 
   componentDidMount() {
@@ -313,8 +330,32 @@ export default class DashboardClassList extends React.Component {
     });
   };
 
+  hideAppliedClassAlert = () => {
+    this.setState({
+      appliedClassSuccess: false
+    });
+  };
+
+  hideWithdrawClassAlert = () => {
+    this.setState({
+      withdrawClassSuccess: false
+    });
+  };
+
+  hidePostedClassAlert = () => {
+    this.setState({
+      postedClassSuccess: false
+    });
+  };
+
+  hideDeletedClassAlert = () => {
+    this.setState({
+      deleteClassSuccess: false
+    });
+  };
+
   render() {
-    // Create Class Cards
+    // Generate ClassCard for open (instructor) or posted (studio) positions
     const classList = this.state.classes.map(props => (
       <ClassCard
         key={props._id}
@@ -327,6 +368,7 @@ export default class DashboardClassList extends React.Component {
       />
     ));
 
+    // Generate ClassCard for classes already applied to (instructor)
     const classesAppliedList = this.state.classesApplied.map(props => (
       <ClassCard
         key={props._id}
@@ -337,6 +379,67 @@ export default class DashboardClassList extends React.Component {
         {...props}
       />
     ));
+
+    // Alerts
+    const postSuccessAlert = this.state.postedClassSuccess ? (
+      <Animated animationInDelay={50}>
+        <div className="success-alert">
+          Class successfully posted.
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={this.hidePostedClassAlert}
+            className="exit"
+          />
+        </div>
+      </Animated>
+    ) : (
+      ""
+    );
+
+    const deleteSuccessAlert = this.state.deleteClassSuccess ? (
+      <Animated animationInDelay={50}>
+        <div className="success-alert">
+          Class deleted.
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={this.hideDeletedClassAlert}
+            className="exit"
+          />
+        </div>
+      </Animated>
+    ) : (
+      ""
+    );
+
+    const appliedSuccessAlert = this.state.appliedClassSuccess ? (
+      <Animated animationInDelay={50}>
+        <div className="success-alert">
+          You have successfully applied.
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={this.hideAppliedClassAlert}
+            className="exit"
+          />
+        </div>
+      </Animated>
+    ) : (
+      ""
+    );
+
+    const withdrawSuccessAlert = this.state.withdrawClassSuccess ? (
+      <Animated animationInDelay={50}>
+        <div className="success-alert">
+          You have withdrawn your application.
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={this.hideWithdrawClassAlert}
+            className="exit"
+          />
+        </div>
+      </Animated>
+    ) : (
+      ""
+    );
 
     // Conditional Displays depending on profile type
     const profile = this.context.user ? this.context.user.type : "";
@@ -357,6 +460,8 @@ export default class DashboardClassList extends React.Component {
                   clickHandler={() => this.postClass()}
                 />
               </Link>
+              {postSuccessAlert}
+              {deleteSuccessAlert}
               <Route
                 exact
                 path="/dashboard/post"
@@ -402,6 +507,8 @@ export default class DashboardClassList extends React.Component {
               <button onClick={() => this.changeView(false)}>
                 Pending Applications
               </button>
+              {appliedSuccessAlert}
+              {withdrawSuccessAlert}
             </React.Fragment>
           ) : (
             ""

@@ -1,5 +1,8 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Animated } from "react-animated-css";
 import "./LogInForm.css";
 import AuthContext from "../../context/AuthContext";
 
@@ -9,7 +12,7 @@ export default class LogInForm extends React.Component {
   static contextType = AuthContext;
 
   state = {
-    loginSuccess: false
+    loginSuccess: null
   };
 
   loginUser = e => {
@@ -50,8 +53,10 @@ export default class LogInForm extends React.Component {
           loginSuccess: true
         });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        this.setState({
+          loginSuccess: false
+        });
       });
   };
 
@@ -62,12 +67,25 @@ export default class LogInForm extends React.Component {
       ""
     );
 
+    const unsuccessfulLogInAlert =
+      this.state.loginSuccess === false ? (
+        <Animated animationInDelay={50}>
+          <div className="success-alert">
+            Email or password does not match our records. Please try again.
+            <FontAwesomeIcon icon={faTimes} className="exit" />
+          </div>
+        </Animated>
+      ) : (
+        ""
+      );
+
     return (
       <div className="log-in-form">
         {redirectToDashboard}
         <header>
           <h3>Log in</h3>
         </header>
+        {unsuccessfulLogInAlert}
         <form onSubmit={this.loginUser}>
           <div>
             <label htmlFor="user">Email: </label>
@@ -80,7 +98,7 @@ export default class LogInForm extends React.Component {
           <input type="submit" />
         </form>
         <p>
-          <Link to="/signup">Sign up</Link>
+          Haven't been here before? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     );
