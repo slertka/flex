@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./ClassCard.css";
 
 export default class ClassCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: false,
+      editingPost: false
     };
   }
 
@@ -94,15 +96,26 @@ export default class ClassCard extends React.Component {
         ""
       );
 
+    const editButton =
+      profile === "studio" ? (
+        <Link to="/dashboard/edit">
+          <button onClick={this.props.editClass}>Edit Listing</button>
+        </Link>
+      ) : (
+        ""
+      );
+
     const deleteButton =
       profile === "studio" ? (
-        <button
-          name="delete"
-          className="delete-button"
-          onClick={this.props.deleteClass}
-        >
-          Delete Listing
-        </button>
+        <Link to="/dashboard/edit">
+          <button
+            name="delete"
+            className="delete-button"
+            onClick={this.props.deleteClass}
+          >
+            Delete Listing
+          </button>
+        </Link>
       ) : (
         ""
       );
@@ -137,6 +150,7 @@ export default class ClassCard extends React.Component {
         }
       >
         {applyButton}
+        {editButton}
         {deleteButton}
 
         {profile === "instructor" && this.props.description === "" ? (

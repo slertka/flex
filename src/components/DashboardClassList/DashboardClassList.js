@@ -8,6 +8,7 @@ import { API_URL } from "../../config";
 import ClassCard from "../ClassCard/ClassCard";
 import PostClassButton from "../PostClassButton/PostClassButton";
 import PostClassForm from "../PostClassForm/PostClassForm";
+import EditClassForm from "../EditClassForm/EditClassForm";
 
 export default class DashboardClassList extends React.Component {
   static contextType = AuthContext;
@@ -17,11 +18,13 @@ export default class DashboardClassList extends React.Component {
 
     this.state = {
       postingClass: false,
+      editingClass: false,
       postedClassSuccess: false,
       jwtExpired: false,
+      openView: true,
       classes: [],
       classesApplied: [],
-      openView: true
+      editClassProps: {}
     };
   }
 
@@ -183,6 +186,14 @@ export default class DashboardClassList extends React.Component {
       .catch(err => console.log(err));
   };
 
+  editClass = props => {
+    console.log(props);
+    this.setState({
+      editingClass: true,
+      editClassProps: props
+    });
+  };
+
   deleteClass = classId => {
     const jwt = this.context.jwt;
 
@@ -202,21 +213,29 @@ export default class DashboardClassList extends React.Component {
   componentDidMount() {
     this.getClasses();
     this.setState({
-      postingClass: false
+      postingClass: false,
+      editingClass: false
     });
   }
 
-  postClass(e) {
+  postClass = () => {
     this.setState({
       postingClass: true
     });
-  }
+  };
 
-  cancelPost(e) {
+  cancelPost = () => {
     this.setState({
       postingClass: false
     });
-  }
+  };
+
+  cancelEditing = () => {
+    this.setState({
+      editingClass: false,
+      postingClass: false
+    });
+  };
 
   changeView = view => {
     this.setState({
@@ -233,6 +252,7 @@ export default class DashboardClassList extends React.Component {
         posting={this.state.postingClass}
         deleteClass={() => this.deleteClass(props._id)}
         applyToClass={() => this.applyToClass(props._id)}
+        editClass={() => this.editClass(props)}
         {...props}
       />
     ));
@@ -258,12 +278,12 @@ export default class DashboardClassList extends React.Component {
         {this.state.jwtExpired ? <Redirect to="/login" /> : ""}
 
         <Route path="/dashboard">
-          {profile === "studio" ? (
-            <>
+          {profile === "studio" && !this.state.editingClass ? (
+            <React.Fragment>
               <Link to="/dashboard/post">
                 <PostClassButton
                   editing={this.state.postingClass}
-                  clickHandler={e => this.postClass(e)}
+                  clickHandler={() => this.postClass()}
                 />
               </Link>
               <Route
@@ -272,25 +292,58 @@ export default class DashboardClassList extends React.Component {
                 render={() => {
                   return (
                     <PostClassForm
-                      cancelPost={e => this.cancelPost(e)}
+                      cancelPost={() => this.cancelPost()}
                       handlePostClass={e => this.createClass(e)}
                     />
                   );
                 }}
               />
-            </>
+            </React.Fragment>
           ) : (
             ""
           )}
 
-          <button onClick={() => this.changeView(true)}>Open Positions</button>
-          <button onClick={() => this.changeView(false)}>
-            Pending Applications
-          </button>
+          {profile === "studio" ? (
+            <Route
+              exact
+              path="/dashboard/edit"
+              render={() => {
+                return (
+                  <EditClassForm
+                    cancelEditing={() => this.cancelEditing()}
+                    {...this.state.editClassProps}
+                  />
+                );
+              }}
+            />
+          ) : (
+            ""
+          )}
 
+          {/* buttons implement tabular view */}
+
+          {profile === "instructor" ? (
+            <React.Fragment>
+              <button onClick={() => this.changeView(true)}>
+                Open Positions
+              </button>
+              <button onClick={() => this.changeView(false)}>
+                Pending Applications
+              </button>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+          {/* displays open positions by default */}
           {this.state.openView ? (
             <React.Fragment>
-              <h3 className={this.state.postingClass ? "hidden" : ""}>
+              <h3
+                className={
+                  this.state.postingClass || this.state.editingClass
+                    ? "hidden"
+                    : ""
+                }
+              >
                 {header}
               </h3>
               <ul>
@@ -301,6 +354,7 @@ export default class DashboardClassList extends React.Component {
             ""
           )}
 
+          {/* displays positions applied for */}
           {profile === "instructor" && !this.state.openView ? (
             <React.Fragment>
               <h3 className={this.state.postingClass ? "hidden" : ""}>
