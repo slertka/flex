@@ -143,12 +143,15 @@ export default class ClassCard extends React.Component {
           this.props.type.slice(1)} Yoga`;
     }
 
-    const applicants = this.props.userApplied.map(user => (
-      <li key={user._id}>
-        Name: {user.firstName} {user.lastName}, Email:{" "}
-        <a href={`mailto: ${user.email}`}>{user.email}</a>
-      </li>
-    ));
+    const applicants =
+      this.props.userApplied.length > 0 && profile === "studio"
+        ? this.props.userApplied.map(user => (
+            <li key={user._id}>
+              Name: {user.firstName} {user.lastName}, Email:{" "}
+              <a href={`mailto: ${user.email}`}>{user.email}</a>
+            </li>
+          ))
+        : "";
 
     return (
       <li

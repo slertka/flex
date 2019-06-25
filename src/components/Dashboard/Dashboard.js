@@ -31,7 +31,7 @@ export class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    setInterval(this.refreshAuthToken(this.context.jwt), 3500000);
+    setInterval(this.refreshAuthToken(this.context.jwt), 1800000);
   }
 
   render() {

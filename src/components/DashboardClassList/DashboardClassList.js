@@ -121,7 +121,6 @@ export default class DashboardClassList extends React.Component {
       classDateTime: classDateTime.value,
       startDate: startDate.value,
       description: description.value,
-      postedBy: this.context.user._id,
       datePosted: new Date()
     };
 
@@ -186,7 +185,7 @@ export default class DashboardClassList extends React.Component {
           alert("You already applied for this class!");
         }
         this.getClasses();
-        this.setState({
+        return this.setState({
           appliedClassSuccess: true
         });
       })
