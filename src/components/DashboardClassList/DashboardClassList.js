@@ -13,6 +13,7 @@ import ClassCard from "../ClassCard/ClassCard";
 import PostClassButton from "../PostClassButton/PostClassButton";
 import PostClassForm from "../PostClassForm/PostClassForm";
 import EditClassForm from "../EditClassForm/EditClassForm";
+import Alert from "../Alert/Alert";
 
 export default class DashboardClassList extends React.Component {
   static contextType = AuthContext;
@@ -459,61 +460,37 @@ export default class DashboardClassList extends React.Component {
 
     // Alerts
     const postSuccessAlert = this.state.postedClassSuccess ? (
-      <Animated animationInDelay={50}>
-        <div className="success-alert">
-          Class successfully posted.
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={this.hidePostedClassAlert}
-            className="exit"
-          />
-        </div>
-      </Animated>
+      <Alert
+        message="Class successfully posted."
+        handleAlert={this.hidePostedClassAlert}
+      />
     ) : (
       ""
     );
 
     const deleteSuccessAlert = this.state.deleteClassSuccess ? (
-      <Animated animationInDelay={50}>
-        <div className="success-alert">
-          Class deleted.
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={this.hideDeletedClassAlert}
-            className="exit"
-          />
-        </div>
-      </Animated>
+      <Alert
+        message="Class deleted."
+        handleAlert={this.hideDeletedClassAlert}
+      />
     ) : (
       ""
     );
 
     const appliedSuccessAlert = this.state.appliedClassSuccess ? (
-      <Animated animationInDelay={50}>
-        <div className="success-alert">
-          You have successfully applied.
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={this.hideAppliedClassAlert}
-            className="exit"
-          />
-        </div>
-      </Animated>
+      <Alert
+        message="You have successfully applied."
+        handleAlert={this.hideAppliedClassAlert}
+      />
     ) : (
       ""
     );
 
     const withdrawSuccessAlert = this.state.withdrawClassSuccess ? (
-      <Animated animationInDelay={50}>
-        <div className="success-alert">
-          You have withdrawn your application.
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={this.hideWithdrawClassAlert}
-            className="exit"
-          />
-        </div>
-      </Animated>
+      <Alert
+        message="You have withdrawn your application."
+        handleAlert={this.hideWithdrawClassAlert}
+      />
     ) : (
       ""
     );
