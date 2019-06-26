@@ -8,6 +8,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Animated } from "react-animated-css";
 
 // Components
+import DashboardSearch from "../DashboardSearch/DashboardSearch";
 import ClassCard from "../ClassCard/ClassCard";
 import PostClassButton from "../PostClassButton/PostClassButton";
 import PostClassForm from "../PostClassForm/PostClassForm";
@@ -30,9 +31,67 @@ export default class DashboardClassList extends React.Component {
       withdrawClassSuccess: false,
       classes: [],
       classesApplied: [],
-      editClassProps: {}
+      editClassProps: {},
+      filterParams: {
+        days: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: false,
+          sunday: false
+        },
+        type: "all"
+      }
     };
   }
+
+  setFilterParams = e => {
+    e.preventDefault();
+    const {
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
+      type
+    } = e.target;
+
+    this.setState({
+      filterParams: {
+        days: {
+          monday: monday.checked,
+          tuesday: tuesday.checked,
+          wednesday: wednesday.checked,
+          thursday: thursday.checked,
+          friday: friday.checked,
+          saturday: saturday.checked,
+          sunday: sunday.checked
+        },
+        type: type.value
+      }
+    });
+  };
+
+  resetFilterParams = () => {
+    this.setState({
+      filterParams: {
+        days: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: false,
+          sunday: false
+        },
+        type: "all"
+      }
+    });
+  };
 
   // Functions that modify the database / ajax requests
   getClasses = () => {
@@ -46,11 +105,30 @@ export default class DashboardClassList extends React.Component {
       }
     };
     const userId = this.context.user ? this.context.user._id : "";
+    // create query for days to filter
+    const daysArray = Object.keys(this.state.filterParams.days);
+    const QueryArray = [];
+    daysArray.forEach(day => {
+      if (this.state.filterParams.days[day]) {
+        QueryArray.push(`${day}=${this.state.filterParams.days[day]}`);
+      }
+    });
+
+    // create query for yoga type to filter
+    if (this.state.filterParams.type !== "all") {
+      QueryArray.push(`type=${this.state.filterParams.type}`);
+    }
+
+    // create query string
+    const queryString = QueryArray.join("&");
 
     if (this.context.user) {
       if (this.context.user.type === "instructor") {
         // get classes instructor hasn't yet applied to
-        fetch(`${API_URL}/dashboard/classes/${userId}`, options)
+        // apply filters if filter params exist
+        let openClassUrl = `${API_URL}/dashboard/classes/${userId}?${queryString}`;
+
+        fetch(openClassUrl, options)
           .then(res => {
             if (!res.ok) {
               return Promise.reject("error");
@@ -185,7 +263,7 @@ export default class DashboardClassList extends React.Component {
           alert("You already applied for this class!");
         }
         this.getClasses();
-        return this.setState({
+        this.setState({
           appliedClassSuccess: true
         });
       })
@@ -450,6 +528,11 @@ export default class DashboardClassList extends React.Component {
       <section>
         {this.state.jwtExpired ? <Redirect to="/login" /> : ""}
 
+        <DashboardSearch
+          setFilterParams={e => this.setFilterParams(e)}
+          resetFilterParams={() => this.resetFilterParams()}
+        />
+
         <Route path="/dashboard">
           {profile === "studio" && !this.state.editingClass ? (
             <React.Fragment>
@@ -552,5 +635,11 @@ export default class DashboardClassList extends React.Component {
         </Route>
       </section>
     );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.filterParams !== prevState.filterParams) {
+      this.getClasses();
+    }
   }
 }
