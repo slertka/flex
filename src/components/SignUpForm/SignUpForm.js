@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Animated } from "react-animated-css";
 import { API_URL } from "../../config";
+import Alert from "../Alert/Alert";
 
 import AuthContext from "../../context/AuthContext";
 
@@ -87,12 +88,7 @@ export default class SignUpForm extends React.Component {
     );
 
     const unsuccessfulSignUpAlert = this.state.hasInvalidField ? (
-      <Animated animationInDelay={50}>
-        <div className="success-alert">
-          {this.state.errorMesssage} Please try again.
-          <FontAwesomeIcon icon={faTimes} className="exit" />
-        </div>
-      </Animated>
+      <Alert message={`${this.state.errorMesssage} Please try again.`} />
     ) : (
       ""
     );
