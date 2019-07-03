@@ -3,9 +3,6 @@ import { Link, Route, Redirect } from "react-router-dom";
 import "./DashboardClassList.css";
 import AuthContext from "../../context/AuthContext";
 import { API_URL } from "../../config";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Animated } from "react-animated-css";
 
 // Components
 import DashboardSearch from "../DashboardSearch/DashboardSearch";

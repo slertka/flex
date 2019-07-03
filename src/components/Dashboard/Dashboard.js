@@ -13,7 +13,6 @@ export class Dashboard extends React.Component {
     const options = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`
       }
     };

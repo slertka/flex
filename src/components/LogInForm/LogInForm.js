@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, BrowserRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Animated } from "react-animated-css";
@@ -80,27 +80,29 @@ export default class LogInForm extends React.Component {
       );
 
     return (
-      <div className="log-in-form">
-        {redirectToDashboard}
-        <header>
-          <h3>Log in</h3>
-        </header>
-        {unsuccessfulLogInAlert}
-        <form onSubmit={this.loginUser}>
-          <div>
-            <label htmlFor="user">Email: </label>
-            <input type="text" name="user" placeholder="Email Address" />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input type="password" name="password" />
-          </div>
-          <input type="submit" />
-        </form>
-        <p>
-          Haven't been here before? <Link to="/signup">Sign up</Link>
-        </p>
-      </div>
+      <BrowserRouter>
+        <div className="log-in-form">
+          {redirectToDashboard}
+          <header>
+            <h3>Log in</h3>
+          </header>
+          {unsuccessfulLogInAlert}
+          <form onSubmit={this.loginUser}>
+            <div>
+              <label htmlFor="user">Email: </label>
+              <input type="text" name="user" placeholder="Email Address" />
+            </div>
+            <div>
+              <label htmlFor="password">Password: </label>
+              <input type="password" name="password" />
+            </div>
+            <input type="submit" />
+          </form>
+          <p>
+            Haven't been here before? <Link to="/signup">Sign up</Link>
+          </p>
+        </div>
+      </BrowserRouter>
     );
   }
 }
