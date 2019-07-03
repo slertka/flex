@@ -7,6 +7,7 @@ import "./LogInForm.css";
 import AuthContext from "../../context/AuthContext";
 
 import { API_URL } from "../../config";
+import Alert from "../Alert/Alert";
 
 export default class LogInForm extends React.Component {
   static contextType = AuthContext;
@@ -69,12 +70,7 @@ export default class LogInForm extends React.Component {
 
     const unsuccessfulLogInAlert =
       this.state.loginSuccess === false ? (
-        <Animated animationInDelay={50}>
-          <div className="success-alert">
-            Email or password does not match our records. Please try again.
-            <FontAwesomeIcon icon={faTimes} className="exit" />
-          </div>
-        </Animated>
+        <Alert message="Email or password does not match our records. Please try again." />
       ) : (
         ""
       );
