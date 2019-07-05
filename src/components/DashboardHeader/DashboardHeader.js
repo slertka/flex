@@ -26,8 +26,10 @@ export default class DashboardHeader extends React.Component {
           <h1>Welcome, {firstName}!</h1>
         </header>
         <p>
-          <Link to="/" onClick={this.logOutUser}>
-            [log out link placeholder]
+          <Link to="/">
+            <button className="logout-button" onClick={this.logOutUser}>
+              Sign Out
+            </button>
           </Link>
         </p>
       </div>

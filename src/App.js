@@ -11,7 +11,6 @@ import Header from "./components/Header/Header";
 import Details from "./components/Details/Details";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import LogInForm from "./components/LogInForm/LogInForm";
-import Footer from "./components/Footer/Footer";
 import Dashboard from "./components/Dashboard/Dashboard";
 
 class App extends React.Component {
@@ -60,10 +59,6 @@ class App extends React.Component {
             <Route path="/login" component={LogInForm} />
 
             <Route path="/signup" component={SignUpForm} />
-
-            {["/", "/about", "/login", "/signup"].map(path => (
-              <Route exact path={path} component={Footer} key={path} />
-            ))}
 
             <Route path="/dashboard" component={Dashboard} />
           </Router>

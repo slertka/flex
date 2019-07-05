@@ -89,7 +89,9 @@ export default class ClassCard extends React.Component {
         <button
           name="apply"
           onClick={this.props.applyToClass}
-          className={this.props.applied ? "hidden apply-button" : ""}
+          className={
+            this.props.applied ? "hidden apply-button" : "apply-button"
+          }
         >
           <label htmlFor="apply">Click to Apply</label>
         </button>
@@ -100,7 +102,9 @@ export default class ClassCard extends React.Component {
     const editButton =
       profile === "studio" ? (
         <Link to="/dashboard/edit">
-          <button onClick={this.props.editClass}>Edit Listing</button>
+          <button onClick={this.props.editClass} className="edit-button">
+            Edit Listing
+          </button>
         </Link>
       ) : (
         ""
@@ -122,7 +126,12 @@ export default class ClassCard extends React.Component {
       );
 
     const withdrawAppButton = this.props.applied ? (
-      <button onClick={this.props.withdrawApplication}>Withdraw</button>
+      <button
+        onClick={this.props.withdrawApplication}
+        className="withdraw-button"
+      >
+        Withdraw
+      </button>
     ) : (
       ""
     );

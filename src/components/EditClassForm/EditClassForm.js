@@ -68,7 +68,9 @@ export default class EditClassForm extends React.Component {
         </div>
         <input type="submit" />
         <Link to="/dashboard">
-          <button onClick={this.props.cancelEditing}>Cancel</button>
+          <button onClick={this.props.cancelEditing} className="cancel-edit">
+            Cancel
+          </button>
         </Link>
       </form>
     );
