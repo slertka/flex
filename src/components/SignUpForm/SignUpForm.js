@@ -1,9 +1,6 @@
 import React from "react";
 import "./SignUpForm.css";
 import { Link, Redirect } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Animated } from "react-animated-css";
 import { API_URL } from "../../config";
 import Alert from "../Alert/Alert";
 
@@ -133,7 +130,7 @@ export default class SignUpForm extends React.Component {
           <input type="password" name="confirmPass" required />
         </div>
         <input type="submit" />
-        <p>
+        <p className="redirect-signup">
           Already joined us? <Link to="/login">Log in</Link>
         </p>
       </form>

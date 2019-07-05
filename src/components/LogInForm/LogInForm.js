@@ -1,8 +1,5 @@
 import React from "react";
 import { Link, Redirect, BrowserRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Animated } from "react-animated-css";
 import "./LogInForm.css";
 import AuthContext from "../../context/AuthContext";
 
@@ -84,17 +81,22 @@ export default class LogInForm extends React.Component {
           </header>
           {unsuccessfulLogInAlert}
           <form onSubmit={this.loginUser}>
-            <div>
+            <div className="login-input">
               <label htmlFor="user">Email: </label>
-              <input type="text" name="user" placeholder="Email Address" />
+              <input
+                type="text"
+                name="user"
+                placeholder="yogi@studio.com"
+                className="email"
+              />
             </div>
-            <div>
+            <div className="login-input">
               <label htmlFor="password">Password: </label>
               <input type="password" name="password" />
             </div>
             <input type="submit" />
           </form>
-          <p>
+          <p className="redirect-signup">
             Haven't been here before? <Link to="/signup">Sign up</Link>
           </p>
         </div>

@@ -1,7 +1,50 @@
 .log-in-form {
-  min-height: 200px;
-  padding: 6% 0;
-  border: 1px solid grey;
-  border-radius: 20px;
-  margin: 1%;
+  padding-top: 25%;
+  padding-bottom: 25%;
+  color: rgb(233, 66, 0);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.email {
+  margin-left: 45px;
+}
+
+.login-input {
+  margin: 5px auto;
+  width: 350px;
+}
+
+input,
+select {
+  height: 40px;
+  border-radius: 3px;
+  width: 200px;
+  background-color: rgb(233, 66, 0);
+  border: none;
+  color: white !important;
+  font-size: 1rem;
+  padding: 0px 15px;
+}
+
+::placeholder {
+  color: white;
+}
+:-ms-input-placeholder {
+  color: white;
+}
+::-ms-input-placeholder {
+  color: white;
+}
+
+input[type="submit"] {
+  height: 45px;
+  width: 350px;
+  border: none;
+  background-color: rgb(245, 196, 0);
+  color: rgb(233, 66, 0) !important;
+  font-weight: 800;
+}
+
+.redirect-signup {
+  margin-top: 35px;
 }

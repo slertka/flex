@@ -1,7 +1,35 @@
 .sign-up-form {
-  min-height: 200px;
-  padding: 6% 0;
-  border: 1px solid grey;
-  border-radius: 20px;
-  margin: 1%;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgb(233, 66, 0);
+  padding-top: 25%;
+  padding-bottom: 25%;
+}
+
+.sign-up-form input {
+  margin-top: 5px;
+}
+
+input[name="studio"] {
+  margin-left: 36px;
+}
+
+input[name="email"] {
+  margin-left: 46px;
+}
+
+input[name="password"] {
+  margin-left: 10px;
+}
+
+label[for="confirmPass"] {
+  display: inline-block;
+  width: 50px;
+  position: relative;
+  top: 5px;
+  margin-top: -15px;
+}
+
+select {
+  width: 300px !important;
+  height: 45px;
 }

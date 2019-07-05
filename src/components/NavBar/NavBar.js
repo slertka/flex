@@ -4,31 +4,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./NavBar.css";
 
-export default function() {
-  return (
-    <header className="nav-bar">
-      <div />
-      <div className="nav-icon">
-        <FontAwesomeIcon icon={faBars} />
-      </div>
-      <div />
-      <div className="spacer" />
-      <div className="nav_items">
-        <ul>
-          <li>
-            <Link to="/">Flex</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/login">Log In</Link>
-          </li>
-        </ul>
-      </div>
-    </header>
-  );
+export default class NavBar extends React.Component {
+  state = {
+    displayLinks: false
+  };
+
+  toggleClass = () => {
+    this.setState({
+      displayLinks: !this.state.displayLinks
+    });
+  };
+
+  render() {
+    return (
+      <header className="nav-bar">
+        <div />
+        <div>
+          <FontAwesomeIcon
+            icon={faBars}
+            className="nav-icon fa-2x"
+            onClick={this.toggleClass}
+          />
+        </div>
+        <div className={this.state.displayLinks ? "" : "hidden"}>
+          <ul>
+            <li className="nav-item">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/login">Log In</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/signup">Sign Up</Link>
+            </li>
+          </ul>
+        </div>
+      </header>
+    );
+  }
 }

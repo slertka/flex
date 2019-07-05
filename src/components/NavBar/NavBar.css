@@ -1,14 +1,27 @@
 .nav-bar {
   width: 100%;
-  color: slateblue;
+  color: rgb(233, 66, 0);
   text-align: right;
   position: fixed;
-  right: 2%;
+  right: 4%;
   top: 2%;
+  text-shadow: none;
+}
+
+.hidden {
+  display: none;
 }
 
 .nav-icon {
   right: 5px;
   top: 5px;
   display: inline-block;
+}
+
+.nav-item {
+  margin: 5px auto;
+}
+
+ul {
+  margin: 0;
 }

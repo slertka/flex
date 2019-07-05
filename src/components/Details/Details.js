@@ -1,11 +1,12 @@
 import React from "react";
+import "./Details.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFireAlt, faSmile } from "@fortawesome/free-solid-svg-icons";
+import { faFireAlt, faRocket } from "@fortawesome/free-solid-svg-icons";
 
 export default function() {
   return (
     <div>
-      <section>
+      <section className="detail-search">
         <header>
           <FontAwesomeIcon icon={faFireAlt} className="fa-3x" />
           <h3>Search Open Classes</h3>
@@ -16,9 +17,9 @@ export default function() {
         </p>
       </section>
 
-      <section>
+      <section className="detail-hire">
         <header>
-          <FontAwesomeIcon icon={faSmile} className="fa-3x" />
+          <FontAwesomeIcon icon={faRocket} className="fa-3x" />
           <h3>Hire Certified Instructors</h3>
         </header>
         <p>

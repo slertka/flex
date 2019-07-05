@@ -9,8 +9,8 @@ export default function() {
   return (
     <div className="landing-header">
       <NavBar />
-      <FontAwesomeIcon icon={faSpa} className="fa-3x" />
-      <h1>Flex</h1>
+      <FontAwesomeIcon icon={faSpa} className="fa-3x main-icon" />
+      <h1>FLEX</h1>
       <h2>Build your yoga network</h2>
     </div>
   );
