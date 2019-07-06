@@ -1,0 +1,20 @@
+h1 {
+  margin: 0;
+  padding-top: 15%;
+}
+
+.dashboard-header {
+  position: relative;
+}
+
+.dash-logo {
+  margin: 0;
+  font-weight: 400;
+  color: rgb(245, 196, 0);
+}
+
+.logout-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

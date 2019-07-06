@@ -2,14 +2,16 @@
   display: none;
 }
 
-.success-alert {
-  border: 1px solid grey;
-  margin: 20px auto;
-  border-radius: 10px;
-  position: relative;
-  width: 60%;
-  padding: 10px 50px;
-  background-color: lightgreen;
+.select-view-button {
+  width: 150px;
+  margin: 0 12px;
+  height: 65px;
+  font-weight: 600;
+}
+
+.selected {
+  background-color: rgb(245, 196, 0);
+  color: white;
 }
 
 .exit {

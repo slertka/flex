@@ -10,11 +10,11 @@
 }
 
 input[name="studio"] {
-  margin-left: 36px;
+  margin-left: 40px;
 }
 
 input[name="email"] {
-  margin-left: 46px;
+  margin-left: 50px;
 }
 
 input[name="password"] {
@@ -29,7 +29,10 @@ label[for="confirmPass"] {
   margin-top: -15px;
 }
 
+input[name="confirmPass"] {
+  margin-left: 58px;
+}
+
 select {
-  width: 300px !important;
-  height: 45px;
+  width: 350px !important;
 }

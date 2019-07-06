@@ -1,20 +1,41 @@
 import React from "react";
 import AuthContext from "../../context/AuthContext";
+import "./DashboardSearch.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 export default class DashboardSearch extends React.Component {
   static contextType = AuthContext;
+
+  state = {
+    displayFilter: false
+  };
+
+  toggleDisplay = () => {
+    this.setState({
+      displayFilter: !this.state.displayFilter
+    });
+  };
 
   render() {
     const profile = this.context.user ? this.context.user.type : "";
     return (
       <React.Fragment>
         {profile === "instructor" ? (
-          <section>
-            <form onSubmit={this.props.setFilterParams}>
-              <h3>Filter Open Classes</h3>
+          <div>
+            <div onClick={this.toggleDisplay}>
+              <h3>
+                Filter Open Classes <FontAwesomeIcon icon={faCaretDown} />
+              </h3>
+            </div>
+            <form
+              onSubmit={this.props.setFilterParams}
+              className={this.state.displayFilter ? "search" : "hidden search"}
+            >
               <div>
                 <label htmlFor="type">Type of Yoga: </label>
-                <select name="type">
+                <select name="type" className="select-yoga">
                   <option value="all">All</option>
                   <option value="open">Open Format</option>
                   <option value="vinyasa">Vinyasa</option>
@@ -27,32 +48,44 @@ export default class DashboardSearch extends React.Component {
               </div>
               <div>
                 <label>Class Day:</label>
-                <input name="monday" type="checkbox" value="monday" />
-                Monday
                 <br />
-                <input name="tuesday" type="checkbox" value="tuesday" />
-                Tuesday
-                <br />
-                <input name="wednesday" type="checkbox" value="wednesday" />
-                Wednesday
-                <br />
-                <input name="thursday" type="checkbox" value="thursday" />
-                Thursday
-                <br />
-                <input name="friday" type="checkbox" value="friday" />
-                Friday
-                <br />
-                <input name="saturday" type="checkbox" value="saturday" />
-                Saturday
-                <br />
-                <input name="sunday" type="checkbox" value="sunday" />
-                Sunday
-                <br />
+                <div className="day-check">
+                  <input name="monday" type="checkbox" value="monday" />
+                  <label htmlFor="monday">Monday</label>
+                  <br />
+                  <input name="tuesday" type="checkbox" value="tuesday" />
+                  <label htmlFor="tuesday">Tuesday</label>
+                  <br />
+                  <input name="wednesday" type="checkbox" value="wednesday" />
+                  <label htmlFor="wednesday">Wednesday</label>
+                  <br />
+                  <input name="thursday" type="checkbox" value="thursday" />
+                  <label htmlFor="thursday">Thursday</label>
+
+                  <br />
+                  <input name="friday" type="checkbox" value="friday" />
+                  <label htmlFor="friday">Friday</label>
+
+                  <br />
+                  <input name="saturday" type="checkbox" value="saturday" />
+                  <label htmlFor="saturday">Saturday</label>
+
+                  <br />
+                  <input name="sunday" type="checkbox" value="sunday" />
+                  <label htmlFor="sunday">Sunday</label>
+
+                  <br />
+                </div>
               </div>
               <input type="submit" value="Search" />
-              <button onClick={this.props.resetFilterParams}>Reset</button>
+              <button
+                className="reset-filter-button"
+                onClick={this.props.resetFilterParams}
+              >
+                Reset
+              </button>
             </form>
-          </section>
+          </div>
         ) : (
           ""
         )}

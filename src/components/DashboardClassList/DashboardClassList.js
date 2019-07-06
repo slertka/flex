@@ -557,10 +557,24 @@ export default class DashboardClassList extends React.Component {
 
           {profile === "instructor" ? (
             <React.Fragment>
-              <button onClick={() => this.changeView(true)}>
+              <button
+                onClick={() => this.changeView(true)}
+                className={
+                  this.state.openView
+                    ? "selected select-view-button"
+                    : "select-view-button"
+                }
+              >
                 Open Positions
               </button>
-              <button onClick={() => this.changeView(false)}>
+              <button
+                onClick={() => this.changeView(false)}
+                className={
+                  this.state.openView
+                    ? "select-view-button"
+                    : "selected select-view-button"
+                }
+              >
                 Pending Applications
               </button>
               {appliedSuccessAlert}

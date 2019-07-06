@@ -1,0 +1,71 @@
+h3 {
+  margin: 0;
+  padding: 25px 0;
+}
+
+.search {
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 25px;
+  padding-top: 20px;
+}
+
+.select-yoga {
+  width: 200px !important;
+  margin-bottom: 5px;
+}
+
+.search input[type="checkbox"] {
+  margin: 0px;
+  width: 15px;
+}
+
+.day-check label {
+  margin-left: 15px;
+  position: relative;
+  top: -12px;
+}
+
+.search input[name="monday"] {
+  margin-right: 32px;
+}
+
+.search input[name="tuesday"] {
+  margin-right: 32px;
+}
+
+.search input[name="thursday"] {
+  margin-right: 22px;
+}
+
+.search input[name="friday"] {
+  margin-right: 47px;
+}
+
+.search input[name="saturday"] {
+  margin-right: 20px;
+}
+
+.search input[name="sunday"] {
+  margin-right: 32px;
+  margin-bottom: 15px;
+}
+
+.search select {
+  background-color: rgb(235, 235, 235);
+  color: black !important;
+}
+
+.reset-filter-button {
+  width: 150px;
+  margin-left: 5px;
+  height: 45px;
+  font-weight: 600;
+}
+
+.search input[type="submit"] {
+  background-color: rgb(235, 235, 235);
+  color: black !important;
+  width: 150px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}

@@ -1,0 +1,10 @@
+.success-alert {
+  border: 1px solid grey;
+  margin: 20px auto;
+  border-radius: 10px;
+  position: relative;
+  width: 60%;
+  padding: 10px 50px;
+  background-color: rgb(146, 0, 0);
+  color: white !important;
+}

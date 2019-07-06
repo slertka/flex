@@ -2,18 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./ClassCard.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+
 export default class ClassCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       expanded: false,
-      editingPost: false
+      editingPost: false,
+      expandOpts: false
     };
   }
 
   handleExpand = () => {
     this.setState({
       expanded: !this.state.expanded
+    });
+  };
+
+  expandOpts = () => {
+    this.setState({
+      expandOpts: !this.state.expandOpts
     });
   };
 
@@ -84,13 +94,26 @@ export default class ClassCard extends React.Component {
 
   render() {
     const profile = this.props.profile;
+
+    const seeMore = (
+      <button
+        name="expand"
+        className="seemore-button expand-opt"
+        onClick={this.handleExpand}
+      >
+        <label for="expand">See More</label>
+      </button>
+    );
+
     const applyButton =
       profile === "instructor" ? (
         <button
           name="apply"
           onClick={this.props.applyToClass}
           className={
-            this.props.applied ? "hidden apply-button" : "apply-button"
+            this.props.applied
+              ? "hidden apply-button expand-opt"
+              : "apply-button expand-opt"
           }
         >
           <label htmlFor="apply">Click to Apply</label>
@@ -102,8 +125,12 @@ export default class ClassCard extends React.Component {
     const editButton =
       profile === "studio" ? (
         <Link to="/dashboard/edit">
-          <button onClick={this.props.editClass} className="edit-button">
-            Edit Listing
+          <button
+            onClick={this.props.editClass}
+            className="edit-button expand-opt"
+            name="edit"
+          >
+            <label for="edit">Edit Listing</label>
           </button>
         </Link>
       ) : (
@@ -115,10 +142,10 @@ export default class ClassCard extends React.Component {
         <Link to="/dashboard/edit">
           <button
             name="delete"
-            className="delete-button"
+            className="delete-button expand-opt"
             onClick={this.props.deleteClass}
           >
-            Delete Listing
+            <label for="delete">Delete Listing</label>
           </button>
         </Link>
       ) : (
@@ -128,7 +155,7 @@ export default class ClassCard extends React.Component {
     const withdrawAppButton = this.props.applied ? (
       <button
         onClick={this.props.withdrawApplication}
-        className="withdraw-button"
+        className="withdraw-button expand-opt"
       >
         Withdraw
       </button>
@@ -152,15 +179,12 @@ export default class ClassCard extends React.Component {
           this.props.type.slice(1)} Yoga`;
     }
 
-    const applicants =
-      this.props.userApplied.length > 0 && profile === "studio"
-        ? this.props.userApplied.map(user => (
-            <li key={user._id}>
-              Name: {user.firstName} {user.lastName}, Email:{" "}
-              <a href={`mailto: ${user.email}`}>{user.email}</a>
-            </li>
-          ))
-        : "";
+    const applicants = this.props.userApplied.map(user => (
+      <li key={user._id}>
+        Name: {user.firstName} {user.lastName}, Email:{" "}
+        <a href={`mailto: ${user.email}`}>{user.email}</a>
+      </li>
+    ));
 
     return (
       <li
@@ -168,37 +192,60 @@ export default class ClassCard extends React.Component {
           this.props.posting ? "hidden open-position" : "open-position"
         }
       >
-        {applyButton}
-        {editButton}
-        {deleteButton}
-        {withdrawAppButton}
+        <div className="class-mods">
+          <FontAwesomeIcon
+            icon={faEllipsisH}
+            className="expand-icon"
+            onClick={() => this.expandOpts()}
+          />
+          <div
+            className={
+              this.state.expandOpts ? "expand-opts" : "expand-opts hidden"
+            }
+          >
+            {seeMore}
+            {applyButton}
+            {editButton}
+            {deleteButton}
+            {withdrawAppButton}
+          </div>
+        </div>
 
-        {profile === "instructor" && this.props.description === "" ? (
-          ""
+        <h4 className="class-type">{yogaType}</h4>
+
+        {profile === "instructor" ? (
+          <h5 className="class-studio">
+            <FontAwesomeIcon icon={faMapMarkerAlt} />{" "}
+            {this.props.postedBy.studio}
+          </h5>
         ) : (
-          <button name="expand" onClick={e => this.handleExpand(e)}>
-            {this.state.expanded ? "Hide" : "Expand"}
-          </button>
+          ""
         )}
 
-        <h4>{yogaType}</h4>
-        <h5>{profile === "instructor" ? this.props.postedBy.studio : ""}</h5>
-        <h5>
+        <h5 className="class-date">
           {this.props.classDateDay.charAt(0).toUpperCase() +
             this.props.classDateDay.slice(1)}
           s @ {this.convertTime(this.props.classDateTime)}{" "}
           {`(${this.props.length} minutes)`}
         </h5>
-        <h5>Start Date: {this.convertDate(this.props.startDate)}</h5>
-        {profile === "studio" ? (
-          <h5>Number of Applicants: {this.props.userApplied.length}</h5>
-        ) : (
-          ""
-        )}
-        <h5>${this.props.wage}/hour</h5>
-        <div className={!this.state.expanded ? "hidden" : ""}>
+
+        <h5 className="class-wage">${this.props.wage}/hour</h5>
+
+        <h5 className="class-responses">
+          {this.props.userApplied.length} response
+          {this.props.userApplied.length === 1 ? "" : "s"}
+        </h5>
+
+        <div
+          className={
+            !this.state.expanded
+              ? "hidden class-description"
+              : "class-description"
+          }
+        >
           <h6>{this.props.description}</h6>
           {""}
+          <h5>Start Date: {this.convertDate(this.props.startDate)}</h5>
           {profile === "studio" && this.props.userApplied.length > 0 ? (
             <ul>
               Applicants:

@@ -1,9 +1,56 @@
-.open-position {
-  border: 1px solid grey;
-  margin: 20px;
-  border-radius: 10px;
+.open-position * {
+  margin: 0;
 }
 
-.hidden {
-  display: none;
+.open-position {
+  border: 1px solid grey;
+  position: relative;
+  padding: 15px 10px;
+  text-align: left;
+}
+
+.class-studio,
+.class-date,
+.class-responses,
+.class-wage,
+.class-description {
+  font-weight: 400;
+  color: rgb(74, 74, 74);
+}
+
+.class-responses {
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.class-mods {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+
+.expand-icon {
+  margin-bottom: 10px;
+}
+
+.expand-icon,
+.expand-opts {
+  right: 0;
+  position: absolute;
+}
+
+.expand-opts {
+  margin-top: 10px;
+}
+
+.expand-opt {
+  font-size: 0.5rem !important;
+  background: none;
+  text-align: right;
+  height: 10px !important;
+  padding: 0;
+  width: 75px;
+}
+
+.expand-opt:first-of-type {
 }

@@ -2,7 +2,7 @@
   padding-top: 25%;
   padding-bottom: 25%;
   color: rgb(233, 66, 0);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgb(245, 196, 0);
 }
 
 .email {
@@ -40,9 +40,9 @@ input[type="submit"] {
   height: 45px;
   width: 350px;
   border: none;
-  background-color: rgb(245, 196, 0);
-  color: rgb(233, 66, 0) !important;
-  font-weight: 800;
+  background-color: rgb(233, 66, 0);
+  color: white !important;
+  font-weight: 600;
 }
 
 .redirect-signup {

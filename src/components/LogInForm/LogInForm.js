@@ -73,34 +73,32 @@ export default class LogInForm extends React.Component {
       );
 
     return (
-      <BrowserRouter>
-        <div className="log-in-form">
-          {redirectToDashboard}
-          <header>
-            <h3>Log in</h3>
-          </header>
-          {unsuccessfulLogInAlert}
-          <form onSubmit={this.loginUser}>
-            <div className="login-input">
-              <label htmlFor="user">Email: </label>
-              <input
-                type="text"
-                name="user"
-                placeholder="yogi@studio.com"
-                className="email"
-              />
-            </div>
-            <div className="login-input">
-              <label htmlFor="password">Password: </label>
-              <input type="password" name="password" />
-            </div>
-            <input type="submit" />
-          </form>
-          <p className="redirect-signup">
-            Haven't been here before? <Link to="/signup">Sign up</Link>
-          </p>
-        </div>
-      </BrowserRouter>
+      <div className="log-in-form">
+        {redirectToDashboard}
+        <header>
+          <h3>Log in</h3>
+        </header>
+        {unsuccessfulLogInAlert}
+        <form onSubmit={this.loginUser}>
+          <div className="login-input">
+            <label htmlFor="user">Email: </label>
+            <input
+              type="text"
+              name="user"
+              placeholder="yogi@studio.com"
+              className="email"
+            />
+          </div>
+          <div className="login-input">
+            <label htmlFor="password">Password: </label>
+            <input type="password" name="password" />
+          </div>
+          <input type="submit" />
+        </form>
+        <p className="redirect-signup">
+          Haven't been here before? <Link to="/signup">Sign up</Link>
+        </p>
+      </div>
     );
   }
 }
