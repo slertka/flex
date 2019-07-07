@@ -3,6 +3,75 @@ fieldset {
 }
 
 textarea {
-  display: inline-block;
   width: 85%;
+  background-color: rgb(216, 216, 216);
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+  height: 150px;
+}
+
+textarea::placeholder {
+  color: black;
+}
+
+fieldset {
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.postClass-header {
+  padding-bottom: 5px;
+}
+
+.post-class-form input {
+  background-color: rgb(216, 216, 216);
+  color: black !important;
+  margin-top: 5px;
+  width: 150px;
+  padding: 0 10px;
+}
+
+.post-class-form input[type="submit"],
+.cancel-post {
+  width: 100px;
+  margin-right: 10px;
+  height: 45px;
+  font-weight: 600;
+}
+
+.post-class-form label {
+  margin-right: 5px;
+}
+
+input[type="time"] {
+  width: 130px !important;
+}
+
+input[type="date"] {
+  width: 150px;
+}
+
+.post-class-form select {
+  background-color: rgb(216, 216, 216);
+  color: black !important;
+  margin-top: 5px;
+}
+
+.post-class-form select[name="classDateDay"] {
+  width: 150px !important;
+}
+
+input[name="length"] {
+  margin-left: 30px;
+}
+
+input[name="wage"] {
+  margin-left: 35px;
+}
+
+select[name="classDateDay"] {
+  margin-left: 7px;
 }

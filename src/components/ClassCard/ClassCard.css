@@ -3,17 +3,41 @@
 }
 
 .open-position {
-  border: 1px solid grey;
   position: relative;
   padding: 15px 10px;
   text-align: left;
 }
 
+.yoga-pic {
+  margin-top: 15px;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(216, 216, 216);
+  color: rgb(245, 196, 0);
+  position: absolute;
+  text-align: center;
+  font-size: 1.75rem;
+  line-height: 75px;
+}
+
+.class-header {
+  margin-left: 100px;
+}
+
+.class-duration {
+  font-weight: 600 !important;
+}
+
 .class-studio,
+.class-duration,
 .class-date,
 .class-responses,
 .class-wage,
-.class-description {
+.class-description,
+.class-applicants,
+.class-startDate {
   font-weight: 400;
   color: rgb(74, 74, 74);
 }
@@ -21,6 +45,11 @@
 .class-responses {
   font-size: 0.75rem;
   font-style: italic;
+}
+
+.class-startDate {
+  font-weight: 500;
+  font-size: 0.75rem;
 }
 
 .class-mods {
@@ -52,5 +81,34 @@
   width: 75px;
 }
 
-.expand-opt:first-of-type {
+.expanded-info,
+.applicant-list {
+  margin-top: 15px;
+}
+
+.applicant-list {
+  font-size: 0.75rem;
+  color: rgb(74, 74, 74);
+  font-weight: 500;
+}
+
+.applicant {
+  position: relative;
+}
+
+.applicant:hover * {
+  font-weight: 600 !important;
+  font-style: italic;
+}
+
+.applicant-name {
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+.contact {
+  position: absolute;
+  right: 0;
+  top: 0;
 }

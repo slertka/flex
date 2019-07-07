@@ -502,20 +502,17 @@ export default class DashboardClassList extends React.Component {
       <section>
         {this.state.jwtExpired ? <Redirect to="/login" /> : ""}
 
-        <DashboardSearch
-          setFilterParams={e => this.setFilterParams(e)}
-          resetFilterParams={() => this.resetFilterParams()}
-        />
-
         <Route path="/dashboard">
           {profile === "studio" && !this.state.editingClass ? (
             <React.Fragment>
-              <Link to="/dashboard/post">
-                <PostClassButton
-                  editing={this.state.postingClass}
-                  clickHandler={() => this.postClass()}
-                />
-              </Link>
+              <Route exact path="/dashboard">
+                <Link to="/dashboard/post">
+                  <PostClassButton
+                    editing={this.state.postingClass}
+                    clickHandler={() => this.postClass()}
+                  />
+                </Link>
+              </Route>
               {postSuccessAlert}
               {deleteSuccessAlert}
               <Route
@@ -556,7 +553,7 @@ export default class DashboardClassList extends React.Component {
           {/* buttons implement tabular view */}
 
           {profile === "instructor" ? (
-            <React.Fragment>
+            <div className="display-tabs">
               <button
                 onClick={() => this.changeView(true)}
                 className={
@@ -579,22 +576,29 @@ export default class DashboardClassList extends React.Component {
               </button>
               {appliedSuccessAlert}
               {withdrawSuccessAlert}
-            </React.Fragment>
+            </div>
           ) : (
             ""
           )}
+
           {/* displays open positions by default */}
           {this.state.openView ? (
             <React.Fragment>
               <h3
                 className={
                   this.state.postingClass || this.state.editingClass
-                    ? "hidden"
-                    : ""
+                    ? "hidden open-class-header"
+                    : "open-class-header"
                 }
               >
                 {header}
               </h3>
+
+              <DashboardSearch
+                setFilterParams={e => this.setFilterParams(e)}
+                resetFilterParams={() => this.resetFilterParams()}
+              />
+
               <ul>
                 <Route exact path="/dashboard" render={() => classList} />
               </ul>
@@ -606,7 +610,13 @@ export default class DashboardClassList extends React.Component {
           {/* displays positions applied for */}
           {profile === "instructor" && !this.state.openView ? (
             <React.Fragment>
-              <h3 className={this.state.postingClass ? "hidden" : ""}>
+              <h3
+                className={
+                  this.state.postingClass
+                    ? "hidden applied-list-header"
+                    : "applied-list-header"
+                }
+              >
                 Pending Applications
               </h3>
               <ul>

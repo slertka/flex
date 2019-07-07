@@ -24,9 +24,9 @@ export default class DashboardSearch extends React.Component {
       <React.Fragment>
         {profile === "instructor" ? (
           <div>
-            <div onClick={this.toggleDisplay}>
+            <div onClick={this.toggleDisplay} className="search-header">
               <h3>
-                Filter Open Classes <FontAwesomeIcon icon={faCaretDown} />
+                Filter <FontAwesomeIcon icon={faCaretDown} />
               </h3>
             </div>
             <form

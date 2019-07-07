@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect, BrowserRouter } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./LogInForm.css";
 import AuthContext from "../../context/AuthContext";
 

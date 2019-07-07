@@ -17,7 +17,8 @@ export default class ClassCard extends React.Component {
 
   handleExpand = () => {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: !this.state.expanded,
+      expandOpts: false
     });
   };
 
@@ -101,7 +102,9 @@ export default class ClassCard extends React.Component {
         className="seemore-button expand-opt"
         onClick={this.handleExpand}
       >
-        <label for="expand">See More</label>
+        <label for="expand">
+          {this.state.expanded ? "See Less" : "See More"}
+        </label>
       </button>
     );
 
@@ -163,6 +166,30 @@ export default class ClassCard extends React.Component {
       ""
     );
 
+    let yogaAbr;
+    switch (this.props.type) {
+      case "open":
+        yogaAbr = "OF";
+        break;
+      case "prenatal":
+        yogaAbr = "P";
+        break;
+      case "sculpt":
+        yogaAbr = "YS";
+        break;
+      case "vinyasa":
+        yogaAbr = "V";
+        break;
+      case "hatha":
+        yogaAbr = "H";
+        break;
+      case "bikram":
+        yogaAbr = "B";
+        break;
+      default:
+        yogaAbr = "Y";
+    }
+
     let yogaType;
     switch (this.props.type) {
       case "open":
@@ -181,8 +208,15 @@ export default class ClassCard extends React.Component {
 
     const applicants = this.props.userApplied.map(user => (
       <li key={user._id}>
-        Name: {user.firstName} {user.lastName}, Email:{" "}
-        <a href={`mailto: ${user.email}`}>{user.email}</a>
+        <div className="applicant">
+          <h6 className="applicant-name">
+            {user.firstName} {user.lastName}
+          </h6>
+
+          <a href={`mailto: ${user.email}`} className="contact">
+            Contact
+          </a>
+        </div>
       </li>
     ));
 
@@ -192,6 +226,8 @@ export default class ClassCard extends React.Component {
           this.props.posting ? "hidden open-position" : "open-position"
         }
       >
+        <div className="yoga-pic">{yogaAbr}</div>
+
         <div className="class-mods">
           <FontAwesomeIcon
             icon={faEllipsisH}
@@ -211,43 +247,47 @@ export default class ClassCard extends React.Component {
           </div>
         </div>
 
-        <h4 className="class-type">{yogaType}</h4>
+        <div className="class-header">
+          <h4 className="class-type">{yogaType}</h4>
 
-        {profile === "instructor" ? (
-          <h5 className="class-studio">
-            <FontAwesomeIcon icon={faMapMarkerAlt} />{" "}
-            {this.props.postedBy.studio}
+          {profile === "instructor" ? (
+            <h5 className="class-studio">
+              <FontAwesomeIcon icon={faMapMarkerAlt} />{" "}
+              {this.props.postedBy.studio}
+            </h5>
+          ) : (
+            ""
+          )}
+
+          <h5 className="class-duration">{this.props.length} minutes</h5>
+
+          <h5 className="class-date">
+            {this.props.classDateDay.charAt(0).toUpperCase() +
+              this.props.classDateDay.slice(1)}
+            s @ {this.convertTime(this.props.classDateTime)}
           </h5>
-        ) : (
-          ""
-        )}
 
-        <h5 className="class-date">
-          {this.props.classDateDay.charAt(0).toUpperCase() +
-            this.props.classDateDay.slice(1)}
-          s @ {this.convertTime(this.props.classDateTime)}{" "}
-          {`(${this.props.length} minutes)`}
-        </h5>
+          <h5 className="class-wage">${this.props.wage}/hour</h5>
 
-        <h5 className="class-wage">${this.props.wage}/hour</h5>
-
-        <h5 className="class-responses">
-          {this.props.userApplied.length} response
-          {this.props.userApplied.length === 1 ? "" : "s"}
-        </h5>
+          <h5 className="class-responses">
+            {this.props.userApplied.length} response
+            {this.props.userApplied.length === 1 ? "" : "s"}
+          </h5>
+        </div>
 
         <div
           className={
-            !this.state.expanded
-              ? "hidden class-description"
-              : "class-description"
+            !this.state.expanded ? "hidden expanded-info " : "expanded-info"
           }
         >
-          <h6>{this.props.description}</h6>
-          {""}
-          <h5>Start Date: {this.convertDate(this.props.startDate)}</h5>
+          <h5 className="class-startDate">
+            Available starting {this.convertDate(this.props.startDate)}
+          </h5>
+
+          <h6 className="class-description">{this.props.description}</h6>
+
           {profile === "studio" && this.props.userApplied.length > 0 ? (
-            <ul>
+            <ul className="applicant-list">
               Applicants:
               {applicants}
             </ul>

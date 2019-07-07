@@ -5,12 +5,15 @@ h1 {
 
 .dashboard-header {
   position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
 
 .dash-logo {
   margin: 0;
   font-weight: 400;
   color: rgb(245, 196, 0);
+  margin-top: 10px;
 }
 
 .logout-button {

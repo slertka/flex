@@ -8,10 +8,9 @@ export default class PostClassForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handlePostClass}>
-        <h3>Post a New Class</h3>
+      <form onSubmit={this.props.handlePostClass} className="post-class-form">
+        <h3 className="postClass-header">Post a New Class</h3>
         <div>
-          <label htmlFor="type">Class Format</label>
           <select name="type">
             <option value="">Select Class Format</option>
             <option value="open">Open Format</option>
@@ -49,12 +48,13 @@ export default class PostClassForm extends React.Component {
               <option value="saturday">Saturday</option>
               <option value="sunday">Sunday</option>
             </select>
-            <label htmlFor="classDateTime">Time</label>
+            <br />
+            <label htmlFor="classDateTime">Time: </label>
             <input type="time" name="classDateTime" />
           </fieldset>
         </div>
         <div>
-          <label htmlFor="description">Class Description</label>
+          <label htmlFor="description">Additional Info</label>
           <textarea
             name="description"
             rows="15"
@@ -63,7 +63,9 @@ export default class PostClassForm extends React.Component {
         </div>
         <input type="submit" />
         <Link to="/dashboard">
-          <button onClick={this.props.cancelPost}>Cancel</button>
+          <button onClick={this.props.cancelPost} className="cancel-post">
+            Cancel
+          </button>
         </Link>
       </form>
     );
