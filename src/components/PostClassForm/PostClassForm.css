@@ -22,6 +22,10 @@ fieldset {
   font-weight: 600;
 }
 
+.post-class-form {
+  margin-bottom: 50px;
+}
+
 .postClass-header {
   padding-bottom: 5px;
 }

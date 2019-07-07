@@ -1,0 +1,31 @@
+.edit-class-form {
+  margin-bottom: 50px;
+}
+
+.edit-class-form input,
+.edit-class-form select {
+  background-color: rgb(216, 216, 216);
+  color: black !important;
+  margin-top: 5px;
+}
+
+.edit-class-form input {
+  width: 150px;
+}
+
+.edit-class-form select[name="classDateDay"] {
+  width: 150px !important;
+}
+
+.edit-class-form input[type="time"] {
+  width: 120px !important;
+  padding: 0 15px;
+}
+
+.edit-class-form input[type="submit"],
+.cancel-edit {
+  height: 45px;
+  width: 100px;
+  margin-right: 10px;
+  font-weight: 600;
+}

@@ -1,17 +1,21 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 
+import "./EditClassForm.css";
+
 export default class EditClassForm extends React.Component {
   render() {
     const date = this.props.startDate
       ? this.props.startDate.substring(0, 10)
       : "";
     return (
-      <form onSubmit={e => this.props.handleEditClass(e, this.props._id)}>
+      <form
+        onSubmit={e => this.props.handleEditClass(e, this.props._id)}
+        className="edit-class-form"
+      >
         {!this.props.type ? <Redirect to="/dashboard" /> : ""}
         <h3>Edit Class</h3>
         <div>
-          <label htmlFor="type">Class Format</label>
           <select name="type" defaultValue={this.props.type}>
             <option value="">Select Class Format</option>
             <option value="open">Open Format</option>
@@ -32,7 +36,7 @@ export default class EditClassForm extends React.Component {
           <input type="number" name="wage" defaultValue={this.props.wage} />
         </div>
         <div>
-          <label htmlFor="startDate">Open Start Date:</label>
+          <label htmlFor="startDate">Open Start Date </label>
           <input type="date" name="startDate" defaultValue={date} />
         </div>
         <div>
@@ -49,7 +53,8 @@ export default class EditClassForm extends React.Component {
               <option value="saturday">Saturday</option>
               <option value="sunday">Sunday</option>
             </select>
-            <label htmlFor="classDateTime">Time</label>
+            <br />
+            <label htmlFor="classDateTime">Time: </label>
             <input
               type="time"
               name="classDateTime"

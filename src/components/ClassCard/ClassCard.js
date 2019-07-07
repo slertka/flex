@@ -142,15 +142,13 @@ export default class ClassCard extends React.Component {
 
     const deleteButton =
       profile === "studio" ? (
-        <Link to="/dashboard/edit">
-          <button
-            name="delete"
-            className="delete-button expand-opt"
-            onClick={this.props.deleteClass}
-          >
-            <label for="delete">Delete Listing</label>
-          </button>
-        </Link>
+        <button
+          name="delete"
+          className="delete-button expand-opt"
+          onClick={this.props.deleteClass}
+        >
+          <label for="delete">Delete Listing</label>
+        </button>
       ) : (
         ""
       );
