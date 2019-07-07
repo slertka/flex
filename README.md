@@ -20,11 +20,12 @@ Live demo can be found [here](https://floating-savannah-98427.herokuapp.com/)
 
 ### Instructor Dashboard
 
-<img src='./screenshots/open.png' height='360px' alt='instructor open classes'/>
-<img src='./screenshots/pending.png' height='360px' alt='instructor pending classes' />
+See open classes at studios  | See open classes you've applied to
+:------------:|:--------------------:
+<img src='./screenshots/open.png' height='600px'/> | <img src='./screenshots/pending.png' height='600px' alt='instructor pending classes' />
 
 ### Studio Dashboard
 
-<img src='./screenshots/posted.png/' height='360px' alt='studio posted classes'/>
-<img src='./screenshots/editClass.png' height='360px' alt='studio edit class form' />
-<img src='./screenshots/postClass.png' height='360px' alt='studio post new class form' />
+See open classes you've posted | Edit existing class postings | Post a new open class
+:-----------------------------:|:----------------------------:|:---------------------:
+<img src='./screenshots/posted.png/' height='600px' /> | <img src='./screenshots/editClass.png' height='600px' /> | <img src='./screenshots/postClass.png' height='600px' alt='studio post new class form' />
