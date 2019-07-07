@@ -12,8 +12,14 @@ textarea {
   height: 150px;
 }
 
+@media only screen and (min-width: 768px) {
+  textarea {
+    width: 500px;
+  }
+}
+
 textarea::placeholder {
-  color: black;
+  color: rgb(74, 74, 74);
 }
 
 fieldset {
@@ -24,6 +30,7 @@ fieldset {
 
 .post-class-form {
   margin-bottom: 50px;
+  color: rgb(74, 74, 74);
 }
 
 .postClass-header {
@@ -32,7 +39,7 @@ fieldset {
 
 .post-class-form input {
   background-color: rgb(216, 216, 216);
-  color: black !important;
+  color: rgb(74, 74, 74) !important;
   margin-top: 5px;
   width: 150px;
   padding: 0 10px;
@@ -60,7 +67,7 @@ input[type="date"] {
 
 .post-class-form select {
   background-color: rgb(216, 216, 216);
-  color: black !important;
+  color: rgb(74, 74, 74) !important;
   margin-top: 5px;
 }
 

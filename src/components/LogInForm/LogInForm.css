@@ -1,8 +1,8 @@
 .log-in-form {
-  padding-top: 25%;
-  padding-bottom: 25%;
-  color: rgb(233, 66, 0);
-  background: rgb(245, 196, 0);
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: rgb(74, 74, 74);
+  border-top: 10px solid rgb(216, 216, 216);
 }
 
 .email {
@@ -19,30 +19,19 @@ select {
   height: 40px;
   border-radius: 3px;
   width: 200px;
-  background-color: rgb(233, 66, 0);
+  background-color: rgb(216, 216, 216);
   border: none;
-  color: white !important;
   font-size: 1rem;
   padding: 0px 15px;
-}
-
-::placeholder {
-  color: white;
-}
-:-ms-input-placeholder {
-  color: white;
-}
-::-ms-input-placeholder {
-  color: white;
 }
 
 input[type="submit"] {
   height: 45px;
   width: 350px;
   border: none;
-  background-color: rgb(233, 66, 0);
-  color: white !important;
+  background-color: rgb(216, 216, 216);
   font-weight: 600;
+  color: rgb(74, 74, 74);
 }
 
 .redirect-signup {

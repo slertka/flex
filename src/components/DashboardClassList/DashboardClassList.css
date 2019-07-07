@@ -21,10 +21,12 @@
 
 .open-class-header {
   padding-bottom: 5px;
+  color: rgb(74, 74, 74);
 }
 
 .applied-list-header {
   border-bottom: 1px solid rgb(216, 216, 216);
+  color: rgb(74, 74, 74);
 }
 
 ul,

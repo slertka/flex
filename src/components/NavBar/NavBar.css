@@ -15,10 +15,19 @@
   right: 5px;
   top: 5px;
   display: inline-block;
+  transform: scale(1.25);
+  color: rgb(74, 74, 74);
 }
 
 .nav-item {
-  margin: 5px auto;
+  margin: 15px auto;
+}
+
+.nav-item a {
+  background-color: rgb(74, 74, 74);
+  padding: 5px 15px;
+  border-radius: 3px;
+  color: white;
 }
 
 ul {

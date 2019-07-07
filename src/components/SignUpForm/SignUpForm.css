@@ -1,8 +1,8 @@
 .sign-up-form {
-  background: rgba(255, 255, 255, 0.8);
-  color: rgb(233, 66, 0);
-  padding-top: 25%;
-  padding-bottom: 25%;
+  color: rgb(74, 74, 74);
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-top: 10px solid rgb(216, 216, 216);
 }
 
 .sign-up-form input {

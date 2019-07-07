@@ -55,6 +55,7 @@ export default class PostClassForm extends React.Component {
         </div>
         <div>
           <label htmlFor="description">Additional Info</label>
+          <br />
           <textarea
             name="description"
             rows="15"

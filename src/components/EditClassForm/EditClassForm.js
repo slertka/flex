@@ -64,6 +64,7 @@ export default class EditClassForm extends React.Component {
         </div>
         <div>
           <label htmlFor="description">Class Description</label>
+          <br />
           <textarea
             name="description"
             rows="15"

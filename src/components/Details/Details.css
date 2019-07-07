@@ -1,16 +1,40 @@
 .detail-search {
   padding-top: 50%;
   padding-bottom: 50%;
-  background: rgb(245, 196, 0);
+  background: rgb(255, 255, 255);
   margin: 0;
-  color: rgb(233, 66, 0);
+  color: rgb(74, 74, 74);
+  border-top: 10px solid rgb(216, 216, 216);
+}
+
+@media only screen and (min-width: 768px) {
+  .detail-search {
+    padding-top: 20%;
+    padding-bottom: 20%;
+  }
+}
+
+.search-icon {
+  color: rgb(245, 196, 0);
+}
+
+.hire-icon {
+  color: rgb(74, 74, 74);
 }
 
 .detail-hire {
+  border-top: 10px solid rgb(216, 216, 216);
   padding-top: 50%;
   padding-bottom: 50%;
-  background: rgb(255, 217, 0);
-  color: rgb(233, 66, 0);
+  background: rgb(245, 196, 0);
+  color: rgb(74, 74, 74);
+}
+
+@media only screen and (min-width: 768px) {
+  .detail-hire {
+    padding-top: 25%;
+    padding-bottom: 25%;
+  }
 }
 
 p {

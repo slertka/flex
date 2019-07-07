@@ -1,11 +1,12 @@
 .edit-class-form {
   margin-bottom: 50px;
+  color: rgb(74, 74, 74);
 }
 
 .edit-class-form input,
 .edit-class-form select {
   background-color: rgb(216, 216, 216);
-  color: black !important;
+  color: rgb(74, 74, 74) !important;
   margin-top: 5px;
 }
 

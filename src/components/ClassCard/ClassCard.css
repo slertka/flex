@@ -6,6 +6,14 @@
   position: relative;
   padding: 15px 10px;
   text-align: left;
+  color: rgb(74, 74, 74);
+}
+
+@media only screen and (min-width: 768px) {
+  .open-position {
+    width: 500px;
+    margin: 0 auto;
+  }
 }
 
 .yoga-pic {
@@ -55,7 +63,7 @@
 .class-mods {
   position: absolute;
   right: 15px;
-  top: 10px;
+  top: 15px;
 }
 
 .expand-icon {

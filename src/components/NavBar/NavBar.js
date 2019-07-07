@@ -22,7 +22,7 @@ export default class NavBar extends React.Component {
         <div>
           <FontAwesomeIcon
             icon={faBars}
-            className="nav-icon fa-2x"
+            className="nav-icon"
             onClick={this.toggleClass}
           />
         </div>

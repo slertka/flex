@@ -10,8 +10,7 @@ export default function() {
     <div className="landing-header">
       <NavBar />
       <FontAwesomeIcon icon={faSpa} className="fa-5x main-icon" />
-      <h1>FLEX</h1>
-      <h2>Build your yoga network</h2>
+      <h1>F L E X</h1>
     </div>
   );
 }

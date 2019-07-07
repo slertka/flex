@@ -8,7 +8,7 @@ export default function() {
     <div>
       <section className="detail-search">
         <header>
-          <FontAwesomeIcon icon={faFireAlt} className="fa-3x" />
+          <FontAwesomeIcon icon={faFireAlt} className="fa-3x search-icon" />
           <h3>Search Open Classes</h3>
         </header>
         <p>
@@ -19,7 +19,7 @@ export default function() {
 
       <section className="detail-hire">
         <header>
-          <FontAwesomeIcon icon={faRocket} className="fa-3x" />
+          <FontAwesomeIcon icon={faRocket} className="fa-3x hire-icon" />
           <h3>Hire Certified Instructors</h3>
         </header>
         <p>
