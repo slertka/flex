@@ -5,8 +5,6 @@ h1 {
 
 .dashboard-header {
   position: relative;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgb(216, 216, 216);
 }
 
 .dash-logo {
@@ -14,6 +12,14 @@ h1 {
   font-weight: 400;
   color: rgb(245, 196, 0);
   margin-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .logout-button {

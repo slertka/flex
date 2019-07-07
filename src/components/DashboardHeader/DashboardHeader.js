@@ -33,7 +33,9 @@ export default class DashboardHeader extends React.Component {
         <header role="banner">
           <h1>Welcome, {firstName}!</h1>
         </header>
-        <h5 className="dash-logo">FLEX</h5>
+        <div id="logo-header">
+          <h5 className="dash-logo">FLEX</h5>
+        </div>
       </div>
     );
   }

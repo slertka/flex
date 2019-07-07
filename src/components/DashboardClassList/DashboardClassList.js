@@ -576,7 +576,7 @@ export default class DashboardClassList extends React.Component {
 
           {/* displays open positions by default */}
           {this.state.openView ? (
-            <React.Fragment>
+            <div className="open-class-list">
               <Route exact path="/dashboard" render={() => header} />
 
               <DashboardSearch
@@ -587,7 +587,7 @@ export default class DashboardClassList extends React.Component {
               <ul>
                 <Route exact path="/dashboard" render={() => classList} />
               </ul>
-            </React.Fragment>
+            </div>
           ) : (
             ""
           )}
