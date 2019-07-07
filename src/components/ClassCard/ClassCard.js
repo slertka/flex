@@ -102,7 +102,7 @@ export default class ClassCard extends React.Component {
         className="seemore-button expand-opt"
         onClick={this.handleExpand}
       >
-        <label for="expand">
+        <label htmlFor="expand">
           {this.state.expanded ? "See Less" : "See More"}
         </label>
       </button>
@@ -133,7 +133,7 @@ export default class ClassCard extends React.Component {
             className="edit-button expand-opt"
             name="edit"
           >
-            <label for="edit">Edit Listing</label>
+            <label htmlFor="edit">Edit Listing</label>
           </button>
         </Link>
       ) : (
@@ -147,7 +147,7 @@ export default class ClassCard extends React.Component {
           className="delete-button expand-opt"
           onClick={this.props.deleteClass}
         >
-          <label for="delete">Delete Listing</label>
+          <label htmlFor="delete">Delete Listing</label>
         </button>
       ) : (
         ""

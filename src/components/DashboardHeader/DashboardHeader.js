@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./DashboardHeader.css";
+
+import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 
 // Context
 import AuthContext from "../../context/AuthContext";
@@ -21,19 +22,18 @@ export default class DashboardHeader extends React.Component {
   render() {
     const firstName = this.context.user ? this.context.user.firstName : "";
 
+    const profile = this.context.user ? this.context.user.type : "";
+
     return (
       <div className="dashboard-header">
+        <DashboardNavBar
+          logOutUser={() => this.logOutUser()}
+          profile={profile}
+        />
         <header role="banner">
           <h1>Welcome, {firstName}!</h1>
         </header>
         <h5 className="dash-logo">FLEX</h5>
-        <p>
-          <Link to="/">
-            <button className="logout-button" onClick={this.logOutUser}>
-              Sign Out
-            </button>
-          </Link>
-        </p>
       </div>
     );
   }

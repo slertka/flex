@@ -1,0 +1,32 @@
+.dash-nav-bar {
+  width: 100%;
+  text-align: right;
+  position: fixed;
+  right: 4%;
+  top: 2%;
+  text-shadow: none;
+}
+
+.dash-nav-icon {
+  right: 5px;
+  top: 5px;
+  display: inline-block;
+  transform: scale(1.25);
+  color: rgb(245, 196, 0);
+}
+
+.dash-nav-item {
+  margin: 15px auto;
+}
+
+.dash-nav-item a {
+  width: 100px;
+  background-color: rgb(245, 196, 0);
+  padding: 5px;
+  border-radius: 3px;
+  color: white;
+}
+
+ul {
+  margin: 0;
+}
