@@ -36,3 +36,9 @@ input[name="confirmPass"] {
 select {
   width: 350px !important;
 }
+
+@media only screen and (max-width: 320px) {
+  select {
+    width: 290px !important;
+  }
+}

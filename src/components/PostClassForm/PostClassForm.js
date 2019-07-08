@@ -11,7 +11,7 @@ export default class PostClassForm extends React.Component {
       <form onSubmit={this.props.handlePostClass} className="post-class-form">
         <h3 className="postClass-header">Post a New Class</h3>
         <div>
-          <select name="type">
+          <select name="type" required>
             <option value="">Select Class Format</option>
             <option value="open">Open Format</option>
             <option value="vinyasa">Vinyasa</option>
@@ -24,21 +24,21 @@ export default class PostClassForm extends React.Component {
         </div>
         <div>
           <label htmlFor="length">Class Length</label>
-          <input type="number" name="length" />
+          <input type="number" name="length" required />
         </div>
         <div>
           <label htmlFor="wage">Hourly Wage</label>
-          <input type="number" name="wage" />
+          <input type="number" name="wage" required />
         </div>
         <div>
           <label htmlFor="startDate">Open Start Date:</label>
-          <input type="date" name="startDate" />
+          <input type="date" name="startDate" required />
         </div>
         <div>
           <fieldset>
             <legend>Class Date</legend>
             <label htmlFor="classDateDay">Day: </label>
-            <select name="classDateDay">
+            <select name="classDateDay" required>
               <option value="">Select Day</option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
@@ -50,7 +50,7 @@ export default class PostClassForm extends React.Component {
             </select>
             <br />
             <label htmlFor="classDateTime">Time: </label>
-            <input type="time" name="classDateTime" />
+            <input type="time" name="classDateTime" required />
           </fieldset>
         </div>
         <div>

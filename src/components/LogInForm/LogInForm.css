@@ -6,12 +6,12 @@
 }
 
 .email {
-  margin-left: 45px;
+  margin-left: 50px;
 }
 
 .login-input {
   margin: 5px auto;
-  width: 350px;
+  width: 100%;
 }
 
 input,
@@ -25,6 +25,12 @@ select {
   padding: 0px 15px;
 }
 
+@media only screen and (max-width: 320px) {
+  input {
+    width: 150px;
+  }
+}
+
 input[type="submit"] {
   height: 45px;
   width: 350px;
@@ -32,6 +38,12 @@ input[type="submit"] {
   background-color: rgb(216, 216, 216);
   font-weight: 600;
   color: rgb(74, 74, 74);
+}
+
+@media only screen and (max-width: 320px) {
+  input[type="submit"] {
+    width: 290px;
+  }
 }
 
 .redirect-signup {

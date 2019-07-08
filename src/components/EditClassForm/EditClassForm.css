@@ -23,6 +23,12 @@
   padding: 0 15px;
 }
 
+@media only screen and (max-width: 320px) {
+  .edit-class-form input {
+    width: 110px;
+  }
+}
+
 .edit-class-form input[type="submit"],
 .cancel-edit {
   height: 45px;
