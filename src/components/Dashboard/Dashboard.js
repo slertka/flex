@@ -16,6 +16,7 @@ export class Dashboard extends React.Component {
         Authorization: `Bearer ${jwt}`
       }
     };
+
     fetch(`${API_URL}/user/auth/refresh`, options)
       .then(res => {
         if (!res.ok) {
