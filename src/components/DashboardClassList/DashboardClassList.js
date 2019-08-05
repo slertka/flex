@@ -23,6 +23,7 @@ export default class DashboardClassList extends React.Component {
       jwtExpired: false,
       openView: true,
       postedClassSuccess: false,
+      editClassSuccess: false,
       deleteClassSuccess: false,
       appliedClassSuccess: false,
       withdrawClassSuccess: false,
@@ -333,6 +334,7 @@ export default class DashboardClassList extends React.Component {
         this.getClasses();
         return this.setState({
           editingClass: false,
+          editClassSuccess: true,
           postingClass: false,
           editClassProps: {}
         });
@@ -410,6 +412,12 @@ export default class DashboardClassList extends React.Component {
     });
   };
 
+  hideEditClassAlert = () => {
+    this.setState({
+      editClassSuccess: false
+    });
+  };
+
   hideWithdrawClassAlert = () => {
     this.setState({
       withdrawClassSuccess: false
@@ -464,6 +472,15 @@ export default class DashboardClassList extends React.Component {
       ""
     );
 
+    const editSuccessAlert = this.state.editClassSuccess ? (
+      <Alert
+        message="Class successfully edited."
+        handleAlert={this.hideEditClassAlert}
+      />
+    ) : (
+      ""
+    );
+
     const deleteSuccessAlert = this.state.deleteClassSuccess ? (
       <Alert
         message="Class deleted."
@@ -507,6 +524,7 @@ export default class DashboardClassList extends React.Component {
           {profile === "studio" && !this.state.editingClass ? (
             <React.Fragment>
               {postSuccessAlert}
+              {editSuccessAlert}
               {deleteSuccessAlert}
               <Route
                 exact

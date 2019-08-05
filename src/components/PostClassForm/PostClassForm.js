@@ -24,11 +24,11 @@ export default class PostClassForm extends React.Component {
         </div>
         <div>
           <label htmlFor="length">Class Length</label>
-          <input type="number" name="length" required />
+          <input type="number" name="length" placeholder="60" required />
         </div>
         <div>
           <label htmlFor="wage">Hourly Wage</label>
-          <input type="number" name="wage" required />
+          <input type="number" name="wage" placeholder="35" required />
         </div>
         <div>
           <label htmlFor="startDate">Open Start Date:</label>

@@ -7,11 +7,11 @@ import "./Alert.css";
 export default function(props) {
   return (
     <Animated animationInDelay={50}>
-      <div className="success-alert">
+      <div className="success">
         {props.message}
         <FontAwesomeIcon
           icon={faTimes}
-          onClick={props.handleAlert}
+          onClick={() => props.handleAlert()}
           className="exit"
         />
       </div>

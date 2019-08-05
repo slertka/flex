@@ -1,10 +1,20 @@
-.success-alert {
-  border: 1px solid grey;
-  margin: 20px auto;
+.exit {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.exit:hover {
+  color: black;
+}
+
+.success {
+  border: none;
+  margin: 0 auto 15px;
   border-radius: 10px;
   position: relative;
   width: 60%;
   padding: 10px 50px;
-  background-color: rgb(146, 0, 0);
-  color: white !important;
+  background-color: rgb(245, 196, 0);
+  color: rgb(74, 74, 74);
 }

@@ -17,14 +17,10 @@ export default class NavBar extends React.Component {
 
   render() {
     return (
-      <header className="dash-nav-bar">
+      <header className="dash-nav-bar" onClick={this.toggleClass}>
         <div />
         <div>
-          <FontAwesomeIcon
-            icon={faBars}
-            className="dash-nav-icon"
-            onClick={this.toggleClass}
-          />
+          <FontAwesomeIcon icon={faBars} className="dash-nav-icon" />
         </div>
         <div className={this.state.displayLinks ? "" : "hidden"}>
           <ul>

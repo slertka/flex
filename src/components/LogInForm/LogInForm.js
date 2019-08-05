@@ -13,6 +13,12 @@ export default class LogInForm extends React.Component {
     loginSuccess: null
   };
 
+  hideAlert = () => {
+    this.setState({
+      loginSuccess: null
+    });
+  };
+
   loginUser = e => {
     e.preventDefault();
 
@@ -67,7 +73,11 @@ export default class LogInForm extends React.Component {
 
     const unsuccessfulLogInAlert =
       this.state.loginSuccess === false ? (
-        <Alert message="Email or password does not match our records. Please try again." />
+        <Alert
+          message="Email or password does not match our records. Please try again."
+          alertType="fail"
+          handleAlert={this.hideAlert}
+        />
       ) : (
         ""
       );
@@ -76,9 +86,10 @@ export default class LogInForm extends React.Component {
       <div className="log-in-form">
         {redirectToDashboard}
         <header>
+          {unsuccessfulLogInAlert}
+
           <h3>Log in</h3>
         </header>
-        {unsuccessfulLogInAlert}
         <form onSubmit={this.loginUser}>
           <div className="login-input">
             <label htmlFor="user">Email: </label>

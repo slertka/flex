@@ -15,8 +15,27 @@
   color: rgb(74, 74, 74);
 }
 
+@media only screen and (min-width: 768px) {
+  .nav-icon {
+    transform: scale(2);
+    position: relative;
+    right: 20px;
+    top: 20px;
+  }
+}
+
 .nav-item {
   margin: 15px auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-item:first-child {
+    margin-top: 37px;
+  }
+
+  .nav-item {
+    margin-right: 12px;
+  }
 }
 
 .nav-item a {

@@ -89,6 +89,13 @@
   width: 75px;
 }
 
+@media only screen and (min-width: 768px) {
+  .expand-opt {
+    font-size: 0.75rem !important;
+    width: 150px;
+  }
+}
+
 .expanded-info,
 .applicant-list {
   margin-top: 15px;

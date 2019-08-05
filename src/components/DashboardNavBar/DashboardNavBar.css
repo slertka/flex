@@ -9,10 +9,32 @@
 .dash-nav-icon {
   transform: scale(1.25);
   color: rgb(245, 196, 0);
+  z-index: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .dash-nav-icon {
+    transform: scale(2);
+    position: absolute;
+    right: 30px;
+    top: 20px;
+  }
 }
 
 .dash-nav-item {
   margin: 15px auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .dash-nav-item:first-child {
+    margin-top: 60px;
+  }
+
+  .dash-nav-item {
+    margin: 20px auto;
+    position: relative;
+    right: 20px;
+  }
 }
 
 .dash-nav-item a {
